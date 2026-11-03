@@ -20,7 +20,7 @@
   --body: 'Figtree', system-ui, -apple-system, 'Segoe UI', sans-serif;
 }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+  :root {
     --bg: #101C1E;
     --ink: #E7EFEC;
     --muted: #9DB1AD;
@@ -36,22 +36,6 @@
     --c-toe: #E3AE49;
     color-scheme: dark;
   }
-}
-:root[data-theme="dark"] {
-  --bg: #101C1E;
-  --ink: #E7EFEC;
-  --muted: #9DB1AD;
-  --line: #2B3E40;
-  --panel: #162427;
-  --accent: #58B7B2;
-  --accent-ink: #0E1B1D;
-  --c-cuff: #4AA19E;
-  --c-leg: #37716A;
-  --c-heel: #E3AE49;
-  --c-gusset: #D6728B;
-  --c-foot: #5D998B;
-  --c-toe: #E3AE49;
-  color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
@@ -96,7 +80,6 @@ button { font: inherit; color: inherit; }
 .z-cuff { fill: var(--c-cuff); }
 .z-leg { fill: var(--c-leg); }
 .z-heel { fill: var(--c-heel); }
-.z-gusset { fill: var(--c-gusset); }
 .z-foot { fill: var(--c-foot); }
 .z-toe { fill: var(--c-toe); }
 .badge circle { fill: var(--ink); }
