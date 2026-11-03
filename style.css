@@ -1,8 +1,7 @@
 [hidden] { display: none !important; }
 /* Layout concept: a large side-view sock on the left, one part's instructions on the right.
    Tap a numbered part (or a chip) and the panel changes. Sock colours echo self-striping sock yarn:
-   teal body, mustard heel and toe, rose gusset.
-   Editing: the owner turns on Edit text; every text carries data-edit (or is a list item) and saves to db "content". */
+   teal body, mustard heel and toe, rose gusset. */
 :root {
   --bg: #EDF1EF;
   --ink: #16272A;
@@ -145,8 +144,8 @@ button { font: inherit; color: inherit; }
 .calc { margin-top: 40px; padding-top: 28px; border-top: 1px solid var(--line); max-width: 560px; }
 .calc .fields { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 14px; }
 .field { display: flex; flex-direction: column; gap: 4px; font-weight: 500; font-size: 0.92rem; min-width: 0; flex: 1 1 200px; }
-.field input, .vfield input { font: inherit; font-size: 16px; font-weight: 400; padding: 10px 12px; border: 1.5px solid var(--line); border-radius: 6px; background: var(--panel); color: var(--ink); width: 100%; min-width: 0; }
-.field input:focus-visible, .vfield input:focus-visible { outline-offset: 0; }
+.field input { font: inherit; font-size: 16px; font-weight: 400; padding: 10px 12px; border: 1.5px solid var(--line); border-radius: 6px; background: var(--panel); color: var(--ink); width: 100%; min-width: 0; }
+.field input:focus-visible { outline-offset: 0; }
 .result { margin-top: 16px; font-size: 1.15rem; }
 .result strong { font: 700 2rem var(--display); font-variant-numeric: tabular-nums; margin: 0 4px; }
 .start-cta { margin-top: 36px; }
@@ -165,19 +164,6 @@ button { font: inherit; color: inherit; }
 .heel-fig .round-bar { fill: none; stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 5 3; }
 .heel-fig figcaption { margin-top: 8px; color: var(--muted); font-size: 0.9rem; }
 
-/* owner editing */
-.bar { position: fixed; z-index: 20; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); right: max(16px, env(safe-area-inset-right, 0px)); display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 8px 14px; max-width: calc(100% - 32px); padding: 10px 12px; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 6px 24px rgb(0 0 0 / 0.18); }
-.bar .hint { display: none; font-size: 0.85rem; color: var(--muted); max-width: 38ch; }
-.editing .bar .hint { display: block; }
-#status { font-size: 0.85rem; color: var(--muted); min-width: 4.5em; text-align: right; }
-.editing [data-edit], .editing .t { outline: 1.5px dashed var(--accent); outline-offset: 3px; border-radius: 3px; cursor: text; }
-.editing [data-edit]:hover, .editing .t:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); }
-.editing [data-edit]:focus, .editing .t:focus { outline: 2px solid var(--accent); background: color-mix(in srgb, var(--accent) 14%, transparent); }
-.x, .add, .vfield { display: none; }
-.editing .x { display: inline-grid; place-items: center; margin-left: 8px; width: 24px; height: 24px; padding: 0; border-radius: 50%; border: 1px solid var(--line); background: var(--panel); color: var(--muted); cursor: pointer; line-height: 1; font-size: 16px; vertical-align: middle; }
-.editing .x:hover { color: var(--ink); border-color: var(--ink); }
-.editing .add { display: inline-flex; align-items: center; margin-top: 10px; min-height: 40px; padding: 8px 12px; background: none; border: 1.5px dashed var(--accent); color: var(--accent); border-radius: 6px; cursor: pointer; font-weight: 600; }
-.editing .vfield { display: flex; flex-direction: column; gap: 4px; margin-top: 14px; font-size: 0.92rem; font-weight: 500; }
 
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; scroll-behavior: auto !important; }
