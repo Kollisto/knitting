@@ -1,0 +1,982 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sock Map</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Figtree:wght@400;500;600&display=swap">
+<style>
+[hidden] { display: none !important; }
+/* Layout concept: a large side-view sock on the left, one part's instructions on the right.
+   Tap a numbered part (or a chip) and the panel changes. Sock colours echo self-striping sock yarn:
+   teal body, mustard heel and toe, rose gusset.
+   Editing: the owner turns on Edit text; every text carries data-edit (or is a list item) and saves to db "content". */
+:root {
+  --bg: #EDF1EF;
+  --ink: #16272A;
+  --muted: #52666A;
+  --line: #C7D3D0;
+  --panel: #F8FAF9;
+  --accent: #1D6A67;
+  --accent-ink: #FFFFFF;
+  --c-cuff: #23585A;
+  --c-leg: #4F8B83;
+  --c-heel: #D79A27;
+  --c-gusset: #C8647E;
+  --c-foot: #86B5A8;
+  --c-toe: #D79A27;
+  --display: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
+  --body: 'Figtree', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #101C1E;
+    --ink: #E7EFEC;
+    --muted: #9DB1AD;
+    --line: #2B3E40;
+    --panel: #162427;
+    --accent: #58B7B2;
+    --accent-ink: #0E1B1D;
+    --c-cuff: #4AA19E;
+    --c-leg: #37716A;
+    --c-heel: #E3AE49;
+    --c-gusset: #D6728B;
+    --c-foot: #5D998B;
+    --c-toe: #E3AE49;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #101C1E;
+  --ink: #E7EFEC;
+  --muted: #9DB1AD;
+  --line: #2B3E40;
+  --panel: #162427;
+  --accent: #58B7B2;
+  --accent-ink: #0E1B1D;
+  --c-cuff: #4AA19E;
+  --c-leg: #37716A;
+  --c-heel: #E3AE49;
+  --c-gusset: #D6728B;
+  --c-foot: #5D998B;
+  --c-toe: #E3AE49;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.55;
+  padding-block: 24px 48px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 1080px; margin: 0 auto; padding-bottom: 72px; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; line-height: 1.12; }
+p { margin: 0; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* header */
+.top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px 32px; padding-bottom: 20px; }
+.top h1 { font-size: clamp(2rem, 5vw, 2.75rem); font-weight: 700; letter-spacing: -0.01em; }
+.sub { color: var(--muted); margin-top: 6px; max-width: 34ch; }
+.tabs { display: flex; gap: 4px; border-bottom: 2px solid var(--line); }
+.tab { background: none; border: 0; padding: 10px 14px; margin-bottom: -2px; border-bottom: 2px solid transparent; cursor: pointer; font-weight: 600; color: var(--muted); }
+.tab:hover { color: var(--ink); }
+.tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+
+/* sock view */
+.sock-view { display: grid; gap: 28px; grid-template-columns: minmax(0, 1fr); align-items: start; }
+@media (min-width: 820px) {
+  .sock-view { grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); gap: 48px; }
+  .sock-col { position: sticky; top: 24px; }
+}
+.sock-col { min-width: 0; }
+#sock { display: block; width: 100%; max-width: 440px; height: auto; margin: 0 auto; }
+.part { cursor: pointer; opacity: 0.38; transition: opacity 0.15s; }
+.part:hover { opacity: 0.7; }
+.part[aria-pressed="true"], #sock.all .part { opacity: 1; }
+.part:focus-visible { outline: none; }
+.part:focus-visible .shape { stroke: var(--ink); stroke-width: 6; }
+.z-cuff { fill: var(--c-cuff); }
+.z-leg { fill: var(--c-leg); }
+.z-heel { fill: var(--c-heel); }
+.z-gusset { fill: var(--c-gusset); }
+.z-foot { fill: var(--c-foot); }
+.z-toe { fill: var(--c-toe); }
+.badge circle { fill: var(--ink); }
+.badge text { fill: var(--bg); font: 700 15px var(--display); text-anchor: middle; dominant-baseline: central; pointer-events: none; }
+.badge { cursor: pointer; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; justify-content: center; }
+.chip { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px 6px 6px; border: 1.5px solid var(--line); background: none; border-radius: 999px; cursor: pointer; font-weight: 500; font-size: 0.9rem; min-height: 40px; }
+.chip .n { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--line); font: 700 0.8rem var(--display); }
+.chip:hover { border-color: var(--muted); }
+.chip[aria-current="step"] { border-color: var(--ink); background: var(--panel); }
+.chip[aria-current="step"] .n { background: var(--ink); color: var(--bg); }
+
+/* panel */
+.panel { min-width: 0; scroll-margin-top: 16px; }
+.eyebrow { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+.panel h2 { font-size: clamp(1.9rem, 4vw, 2.5rem); font-weight: 700; margin-top: 8px; }
+.lead { margin-top: 12px; font-size: 1.1rem; max-width: 56ch; }
+.panel h3, .start-grid h3, .calc h3 { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); font-family: var(--body); }
+.panel h3 { margin-top: 28px; }
+.how { margin: 10px 0 0; padding-left: 1.4em; max-width: 60ch; }
+.how li { padding-left: 4px; margin-top: 8px; }
+.how li::marker { font-weight: 700; color: var(--accent); }
+.watch { margin: 10px 0 0; padding: 14px 16px; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; list-style: none; max-width: 60ch; }
+.watch li + li { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line); }
+.media { margin-top: 24px; padding: 18px; border: 1.5px dashed var(--line); border-radius: 6px; max-width: 60ch; }
+.media-title { font-weight: 600; }
+.media-note { color: var(--muted); font-size: 0.92rem; margin-top: 4px; }
+.media .btn { margin-top: 12px; }
+.btn { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 10px 16px; border-radius: 6px; font-weight: 600; cursor: pointer; border: 1.5px solid var(--ink); background: none; text-decoration: none; }
+.btn:hover { background: var(--ink); color: var(--bg); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn.primary:hover { filter: brightness(1.08); background: var(--accent); color: var(--accent-ink); }
+.ghost { border-style: dashed; border-color: var(--line); color: var(--muted); cursor: default; }
+.ghost:hover { background: none; color: var(--muted); }
+.pager { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+
+/* start view */
+.intro { max-width: 58ch; font-size: 1.1rem; }
+.start-grid { display: grid; gap: 28px 40px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); margin-top: 32px; }
+.start-grid > div { min-width: 0; }
+.start-grid h3 { margin-bottom: 8px; }
+.start-grid p + p { margin-top: 8px; }
+.fine { color: var(--muted); font-size: 0.9rem; }
+.calc { margin-top: 40px; padding-top: 28px; border-top: 1px solid var(--line); max-width: 560px; }
+.calc .fields { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 14px; }
+.field { display: flex; flex-direction: column; gap: 4px; font-weight: 500; font-size: 0.92rem; min-width: 0; flex: 1 1 200px; }
+.field input, .vfield input { font: inherit; font-size: 16px; font-weight: 400; padding: 10px 12px; border: 1.5px solid var(--line); border-radius: 6px; background: var(--panel); color: var(--ink); width: 100%; min-width: 0; }
+.field input:focus-visible, .vfield input:focus-visible { outline-offset: 0; }
+.result { margin-top: 16px; font-size: 1.15rem; }
+.result strong { font: 700 2rem var(--display); font-variant-numeric: tabular-nums; margin: 0 4px; }
+.start-cta { margin-top: 36px; }
+
+/* heel figure */
+.heel-fig { margin: 22px 0 0; max-width: 60ch; }
+.heel-fig svg { display: block; width: 100%; height: auto; }
+.heel-fig text { font: 600 12px var(--body); fill: var(--ink); }
+.heel-fig .fig-label { fill: var(--muted); font-weight: 500; }
+.heel-fig .seg-r { fill: var(--c-leg); }
+.heel-fig .seg-c { fill: var(--c-heel); }
+.heel-fig .seg-l { fill: var(--c-gusset); }
+.heel-fig .ring { fill: var(--bg); }
+.heel-fig .arrow { stroke: var(--ink); stroke-width: 2; }
+.heel-fig .arrow-head { fill: var(--ink); }
+.heel-fig .round-bar { fill: none; stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 5 3; }
+.heel-fig figcaption { margin-top: 8px; color: var(--muted); font-size: 0.9rem; }
+
+/* owner editing */
+.bar { position: fixed; z-index: 20; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); right: max(16px, env(safe-area-inset-right, 0px)); display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 8px 14px; max-width: calc(100% - 32px); padding: 10px 12px; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 6px 24px rgb(0 0 0 / 0.18); }
+.bar .hint { display: none; font-size: 0.85rem; color: var(--muted); max-width: 38ch; }
+.editing .bar .hint { display: block; }
+#status { font-size: 0.85rem; color: var(--muted); min-width: 4.5em; text-align: right; }
+.editing [data-edit], .editing .t { outline: 1.5px dashed var(--accent); outline-offset: 3px; border-radius: 3px; cursor: text; }
+.editing [data-edit]:hover, .editing .t:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); }
+.editing [data-edit]:focus, .editing .t:focus { outline: 2px solid var(--accent); background: color-mix(in srgb, var(--accent) 14%, transparent); }
+.x, .add, .vfield { display: none; }
+.editing .x { display: inline-grid; place-items: center; margin-left: 8px; width: 24px; height: 24px; padding: 0; border-radius: 50%; border: 1px solid var(--line); background: var(--panel); color: var(--muted); cursor: pointer; line-height: 1; font-size: 16px; vertical-align: middle; }
+.editing .x:hover { color: var(--ink); border-color: var(--ink); }
+.editing .add { display: inline-flex; align-items: center; margin-top: 10px; min-height: 40px; padding: 8px 12px; background: none; border: 1.5px dashed var(--accent); color: var(--accent); border-radius: 6px; cursor: pointer; font-weight: 600; }
+.editing .vfield { display: flex; flex-direction: column; gap: 4px; margin-top: 14px; font-size: 0.92rem; font-weight: 500; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; scroll-behavior: auto !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1 data-edit="title">Sock Map</h1>
+      <p class="sub" data-edit="sub">Knit a sock from the top down, one part at a time.</p>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Sections">
+      <button class="tab" id="tab-start" role="tab" aria-selected="false" aria-controls="view-start" type="button">Before you start</button>
+      <button class="tab" id="tab-sock" role="tab" aria-selected="true" aria-controls="view-sock" type="button">The sock</button>
+    </div>
+  </header>
+
+  <section id="view-start" role="tabpanel" aria-labelledby="tab-start" hidden>
+    <p class="intro" data-edit="intro">Everything you need before the first stitch. Gather the materials, measure one foot, and work out how many stitches to cast on.</p>
+    <div class="start-grid">
+      <div>
+        <h3 data-edit="yarn-h">Yarn</h3>
+        <p data-edit="yarn-1">Sock-weight (fingering) wool with about 25% nylon. The nylon stops the heel and toe from wearing through. Expect around 400 m per 100 g.</p>
+        <p class="fine" data-edit="yarn-2">For a first pair, pick a smooth, light, solid colour so you can see every stitch. The label lists the fibre content and the needle size to use.</p>
+      </div>
+      <div>
+        <h3 data-edit="needles-h">Needles</h3>
+        <p data-edit="needles-1">A set of five double-pointed needles, or one long circular needle for the magic loop method. Sizes 2 to 3 mm suit most sock yarn.</p>
+        <p class="fine" data-edit="needles-2">Personally, I rather prefer 5 needles. So for this tutorial we will use them.</p>
+        <p class="fine" data-edit="needles-3">Wood and bamboo hold stitches better than metal, which helps while you learn.</p>
+      </div>
+      <div>
+        <h3 data-edit="kit-h">Small kit</h3>
+        <p data-edit="kit-1">A stitch marker for the start of the round, a tapestry needle for the ends, and a tape measure.</p>
+      </div>
+      <div>
+        <h3 data-edit="skills-h">Skills</h3>
+        <p data-edit="skills-1">Cast on, knit, purl, 1x1 or 2x2 ribbing, German short rows and binding off. Knit a gauge swatch of about 12 by 12 cm first, then count the stitches across the middle 10 cm. Without it, the sock will not fit.</p>
+        <p class="fine" data-edit="skills-2">Personally, I only need the width gauge. You can adjust the length as you go, but it is important that the width fits.</p>
+      </div>
+      <div>
+        <h3 data-edit="measure-h">Measure</h3>
+        <p data-edit="measure-1">Foot circumference at the widest point, and foot length from the back of the heel to the tip of the longest toe.</p>
+      </div>
+    </div>
+
+    <section class="calc" aria-labelledby="calc-title">
+      <h3 id="calc-title" data-edit="calc-h">How many stitches to cast on?</h3>
+      <p class="fine" style="margin-top:6px" data-edit="calc-note">Example numbers are filled in. Swap in your own.</p>
+      <div class="fields">
+        <div class="field">
+          <label for="circ" data-edit="circ-label">Foot circumference (cm)</label>
+          <input id="circ" type="number" inputmode="decimal" min="10" max="40" step="0.5" value="22">
+        </div>
+        <div class="field">
+          <label for="gauge" data-edit="gauge-label">Gauge (stitches per 10 cm)</label>
+          <input id="gauge" type="number" inputmode="decimal" min="10" max="60" step="0.5" value="32">
+        </div>
+      </div>
+      <p class="result" aria-live="polite"><span data-edit="cast-pre">Cast on</span><strong id="cast">64</strong><span data-edit="cast-post">stitches</span></p>
+      <p class="fine" data-edit="calc-fine">This takes 10% off the foot circumference so the sock hugs the foot, then rounds to a multiple of 4 for 2x2 ribbing.</p>
+    </section>
+
+    <div class="start-cta"><button class="btn primary" type="button" data-go="cuff">Start with the cuff</button></div>
+  </section>
+
+  <section id="view-sock" class="sock-view" role="tabpanel" aria-labelledby="tab-sock">
+    <div class="sock-col">
+      <svg id="sock" viewBox="60 0 360 420" role="group" aria-label="A sock seen from the side. Choose a part to see how it is knit.">
+        <defs>
+          <clipPath id="sockclip">
+            <path d="M110,20 L230,20 L230,248 C232,285 262,300 300,300 L348,300 C382,300 396,328 396,350 C396,380 376,396 346,396 L142,396 C104,396 85,376 85,340 C85,300 110,290 110,250 Z"/>
+          </clipPath>
+          <pattern id="knit" width="12" height="14" patternUnits="userSpaceOnUse">
+            <path d="M1.5 2 L6 11 L10.5 2" fill="none" stroke="#fff" stroke-opacity="0.3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </pattern>
+          <pattern id="rib" width="12" height="12" patternUnits="userSpaceOnUse">
+            <rect x="0" y="0" width="5" height="12" fill="#fff" fill-opacity="0.24"/>
+          </pattern>
+        </defs>
+
+        <g class="part" data-id="leg" role="button" tabindex="0" aria-label="Part 2, leg" aria-pressed="false">
+          <rect class="shape z-leg" clip-path="url(#sockclip)" x="70" y="62" width="190" height="153"/>
+        </g>
+        <g class="part" data-id="cuff" role="button" tabindex="0" aria-label="Part 1, cuff" aria-pressed="true">
+          <rect class="shape z-cuff" clip-path="url(#sockclip)" x="70" y="10" width="190" height="52"/>
+        </g>
+        <g class="part" data-id="heel" role="button" tabindex="0" aria-label="Part 3, heel" aria-pressed="false">
+          <polygon class="shape z-heel" clip-path="url(#sockclip)" points="60,215 232,215 163,415 60,415"/>
+        </g>
+        <g class="part" data-id="gusset" role="button" tabindex="0" aria-label="Part 4, gusset and foot" aria-pressed="false">
+          <polygon class="shape z-foot" clip-path="url(#sockclip)" points="232,215 320,215 320,415 163,415"/>
+        </g>
+        <g class="part" data-id="toe" role="button" tabindex="0" aria-label="Part 6, toe" aria-pressed="false">
+          <rect class="shape z-toe" clip-path="url(#sockclip)" x="318" y="270" width="110" height="145"/>
+        </g>
+
+        <rect clip-path="url(#sockclip)" x="70" y="62" width="350" height="350" fill="url(#knit)" pointer-events="none"/>
+        <rect clip-path="url(#sockclip)" x="70" y="10" width="190" height="52" fill="url(#rib)" pointer-events="none"/>
+        <path d="M110,20 L230,20 L230,248 C232,285 262,300 300,300 L348,300 C382,300 396,328 396,350 C396,380 376,396 346,396 L142,396 C104,396 85,376 85,340 C85,300 110,290 110,250 Z" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" pointer-events="none"/>
+
+        <g class="badge" data-id="cuff"><circle cx="170" cy="41" r="15"/><text x="170" y="41">1</text></g>
+        <g class="badge" data-id="leg"><circle cx="170" cy="138" r="15"/><text x="170" y="138">2</text></g>
+        <g class="badge" data-id="heel"><circle cx="135" cy="320" r="15"/><text x="135" y="320">3</text></g>
+        <g class="badge" data-id="gusset"><circle cx="258" cy="350" r="15"/><text x="258" y="350">4</text></g>
+        <g class="badge" data-id="toe"><circle cx="362" cy="345" r="15"/><text x="362" y="345">5</text></g>
+      </svg>
+      <div class="chips" id="chips" role="group" aria-label="Steps"></div>
+    </div>
+    <article class="panel" id="panel">
+      <div id="pcontent" aria-live="polite"></div>
+      <nav class="pager" id="ppager" aria-label="Step navigation"></nav>
+    </article>
+  </section>
+</div>
+
+<div class="bar" id="bar" hidden>
+  <p class="hint">Click any text to edit it. Press Enter or click away to save. Clear a text to bring back the original.</p>
+  <span id="status" aria-live="polite"></span>
+  <button class="btn primary" id="edit-toggle" type="button" aria-pressed="false">Edit text</button>
+</div>
+
+<script>
+(function () {
+  var STEPS = [
+    { id: 'cuff', n: 1, name: 'Cuff', kind: 'Worked in the round',
+      what: 'The ribbed top edge. It hugs the leg and keeps the sock from sliding down.',
+      how: [
+        'Work out your cast-on number from your gauge. The calculator under Before you start does the sum.',
+        'Cast on with a stretchy method and spread the stitches over your needles.',
+        'Join the stitches into a round and place a marker at the start.',
+        'Work 2x2 ribbing (knit 2, purl 2) for about 2 to 3 cm.'
+      ],
+      watchLabel: 'Watch out',
+      watch: [
+        'A twisted join cannot be fixed later. Before the first round, lay the stitches along the needles and check that the cast-on edge runs around the inside with no spiral.',
+        'A tight cast-on makes the cuff pinch. Cast on with a needle one size larger.'
+      ] },
+    { id: 'leg', n: 2, name: 'Leg', kind: 'Worked in the round',
+      what: 'The tube above the heel. The easiest part: the same round, over and over.',
+      how: [
+        'Switch to stockinette (knit every round), or keep the ribbing for a stretchier fit.',
+        'Knit until the leg measures 10 to 15 cm from the cast-on edge, or the height you like.',
+        'Write the height down. You need it again for sock two.'
+      ],
+      watchLabel: 'Watch out',
+      watch: [
+        'Measure with the sock lying flat and not stretched, so both socks end up the same height.'
+      ] },
+    { id: 'heel', n: 3, name: 'Heel', kind: 'Worked back and forth',
+      what: 'The heel is worked back and forth on half of the stitches, using German short rows. Each row is one stitch shorter than the last, then each is one stitch longer. This shapes a cup for the back of the foot, with no stitches picked up.',
+      how: [
+        'Put half of the stitches on hold. These are the instep stitches, and they wait until the heel is done.',
+        'Divide the other half, the heel stitches, into three parts: right, centre and left. The right and left parts always have the same number of stitches. If the heel stitches do not divide by 3, put the extra stitches in the centre, or take them from the centre and give them to the sides.',
+        'Row 1 (right side): knit the right part, the centre and the left part. The last stitch is your first turning stitch. Turn the work.',
+        'Make a double stitch (DS): pull the yarn over the needle so the stitch looks like two, and slip it to the right needle. Purl to the end of the row. Turn on the last stitch and make a DS again.',
+        'Always work a DS as one stitch, and insert the needle so the stitches do not twist.',
+        'Next right-side row: slip the DS, knit the right part and the centre, and knit the left part up to the DS from the previous row. Stop in front of it, turn, and make a DS. Purl to the DS at the end of the row, stop in front of it, turn, and make a DS.',
+        'Repeat. Each row is one stitch shorter than the one before, until only the centre is left. Knit the last stitch of the left part, turn on it and slip it. Purl the centre and the last stitch of the right part, then turn on it.',
+        'Now every stitch in the right and left parts is a DS. Knit the centre, then the left part, then the instep stitches from the hold. Knit the right part, then the centre again.',
+        'Now work in reverse. Knit one stitch of the left part, turn, make a DS, purl the centre and one stitch of the right part, turn, and make a DS.',
+        'On each next row: work the DS from the previous row as one stitch, then one more stitch, and turn on it. Make a DS again. Do the same on the right.',
+        'When the outermost stitch of the right part becomes a DS, finish the left side. Its outermost stitch stays a DS.',
+        'Join all the parts into one round and do not turn again. Knit the instep stitches. When you reach the right part, its first stitch is that last DS: knit it as one stitch.'
+      ],
+      watchLabel: 'Notes',
+      watch: [
+        'Pull each DS firmly, so no holes appear.',
+        'Count your short rows, so sock two matches.',
+        'Try the heel on before you start the foot.',
+        'Example: with 32 heel stitches the parts are 10 + 12 + 10, or 11 + 10 + 11.'
+      ] },
+    { id: 'gusset', n: 4, name: 'Gusset and foot', kind: 'Worked in the round',
+      what: 'After the heel, all the stitches are joined back into one round. The gusset and the foot are worked together as one long stretch.',
+      how: [
+        'Knit across the heel stitches.',
+        'Pick up the stitches that were left waiting on the needles before the heel.',
+        'Spread the stitches evenly over your needles once more.',
+        'Knit in the round until the sock is as long as you need.',
+        'Stop 4 to 5 cm short of the full foot length. The toe adds that length.'
+      ],
+      watchLabel: 'Notes',
+      watch: [
+        'Try the sock on as you go.',
+        'Count your rows, so sock two does not need guesswork.'
+      ] },
+    { id: 'toe', n: 5, name: 'Toe', kind: 'Worked in the round',
+      what: 'The tip. Decreases at both sides shape it, and the last stitches are joined with an invisible seam.',
+      how: [
+        'Split the stitches into two halves: instep and sole.',
+        'On each half: knit 1, slip-slip-knit, knit to the last 3 stitches, knit 2 together, knit 1.',
+        'Decrease on every second round at first, then on every round as the toe narrows.',
+        'Stop at about 16 stitches, 8 on top and 8 underneath.',
+        'Close with Kitchener stitch. Or turn the sock inside out and use a three-needle bind-off, which leaves a ridge inside.'
+      ],
+      watchLabel: 'Watch out',
+      watch: [
+        'Leave a long tail, about 30 cm, for the Kitchener seam so you do not run out halfway.'
+      ] },
+    { id: 'finish', n: 6, name: 'Finish and sock two', kind: 'The last stitches',
+      what: 'Weave in, wash, repeat.',
+      how: [
+        'Weave in the ends on the inside with a tapestry needle.',
+        'Wash the sock in lukewarm water, press out the water in a towel, and dry it flat. This is wet blocking.',
+        'Before you cast on sock two, write down: needle size, cast-on count, leg height, flap rows, and the foot length where the toe starts.',
+        'Knit sock two from your notes.'
+      ],
+      watchLabel: 'Tip',
+      watch: [
+        'Sock two feels slower than sock one. Cast it on the same day, using your notes, and the pair will match.'
+      ] }
+  ];
+
+  var byId = {};
+  STEPS.forEach(function (s) { byId[s.id] = s; });
+  var DEFLIST = {};
+
+  var $ = function (sel) { return document.querySelector(sel); };
+  var viewStart = $('#view-start'), viewSock = $('#view-sock');
+  var tabStart = $('#tab-start'), tabSock = $('#tab-sock');
+  var panel = $('#panel'), content = $('#pcontent'), pager = $('#ppager');
+  var svg = $('#sock'), chips = $('#chips');
+  var bar = $('#bar'), toggle = $('#edit-toggle'), statusEl = $('#status');
+  var parts = Array.prototype.slice.call(svg.querySelectorAll('.part'));
+  var scrollOnShow = false;
+
+  /* ---------- saved edits (db collection "content") ---------- */
+  var OVR = {
+  "s-cuff-how": {
+    "items": [
+      "Work out your cast-on number from your gauge. The calculator under Before you start does the sum.",
+      "Cast on with a stretchy method and spread the stitches over your needles.",
+      "Join the stitches into a round and place a marker at the start.",
+      "Work 2x2 or 1x1 ribbing for about 2 to 3 cm, or as long as you wish. Write down the number of rows."
+    ]
+  },
+  "s-cuff-watch": {
+    "items": [
+      "A twisted join cannot be fixed later. Before the first round, lay the stitches along the needles and check that the cast-on edge runs around the inside with no spiral.",
+      "A tight cast-on makes the cuff pinch. Cast on with a needle one size larger. This is optional. Personally, I have never had any issues with it.",
+      "2x2 ribbing: knit 2, then purl 2. Same for 1x1 (knit 1, purl 1).",
+      "Make sure you cast on a multiple of 4 stitches for 2x2 ribbing, or an even number for 1x1."
+    ]
+  },
+  "s-finish-how": {
+    "items": [
+      "Weave in the ends on the inside with a tapestry needle. Usually you're left with two ends: the beginning and the end.",
+      "Wash the sock in lukewarm water, press out the water in a towel, and dry it flat. This is wet blocking.",
+      "If you didn't start the second sock right away, write down the following before you cast on: needle size, cast-on count, leg height and the foot length where the toe starts.",
+      "Knit sock two from your notes."
+    ]
+  },
+  "s-gusset-how": {
+    "items": [
+      "Knit across the heel stitches.",
+      "Knit the instep stitches that were left on hold during the heel.",
+      "Make sure you spread the stitches evenly once more.",
+      "Knit in the round until the sock is as long as you need.",
+      "Stop 4 to 5 cm short of the full foot length. The toe adds that length."
+    ]
+  },
+  "s-gusset-watch": {
+    "items": [
+      "Now it's a good time to try it on and celebrate it!",
+      "Make sure you count your rows, so when it's time to knit your second sock you don't need to guesstimate.",
+      "If your feet differ in length, there's no problem. They are YOUR socks, so knit them as long or as short as you need."
+    ]
+  },
+  "s-gusset-watchlabel": {
+    "text": "Notes"
+  },
+  "s-heel-how": {
+    "items": [
+      "Put half of the stitches on hold. These are the instep stitches, and they wait until the heel is done.",
+      "Divide the other half, the heel stitches, into three parts: right, centre and left. The right and left parts always have the same number of stitches. If the heel stitches do not divide by 3, put the extra stitches in the centre, or take them from the centre and give them to the sides.",
+      "Row 1 (right side): knit the right part, the centre and the left part. The last stitch is your first turning stitch. Turn the work.",
+      "Make a double stitch (DS): pull the yarn over the needle so the stitch looks like two, and slip it to the right needle. Purl to the end of the row. Turn on the last stitch and make a DS again.",
+      "Next right-side row: slip the DS, knit the right part and the centre, and knit the left part up to the DS from the previous row. Stop in front of it, turn, and make a DS. Purl to the DS at the end of the row, stop in front of it, turn, and make a DS.",
+      "Repeat. Each row is one stitch shorter than the one before, until only the centre is left. Knit the last stitch of the left part, turn on it and slip it. Purl the centre and the last stitch of the right part, then turn on it.",
+      "Now every stitch in the right and left parts is a DS. Knit the centre, then the left part, then the instep stitches from the hold. Knit the right part, then the centre again.",
+      "Now work in reverse. Knit one stitch of the left part, turn, make a DS, purl the centre and one stitch of the right part, turn, and make a DS.",
+      "On each next row: work the DS from the previous row as one stitch, then one more stitch, and turn on it. Make a DS again. Do the same on the right.",
+      "When the outermost stitch of the right part becomes a DS, finish the left side. Its outermost stitch stays a DS.",
+      "Join all the parts into one round and do not turn again. Knit the instep stitches. When you reach the right part, its first stitch is that last DS: knit it as one stitch."
+    ]
+  },
+  "s-heel-watch": {
+    "items": [
+      "Pull each DS firmly, so no holes appear.",
+      "If the heel stitches do not divide evenly into 3 sections, make sure you divide them the same way on your second sock.",
+      "Try the heel on before you start the foot.",
+      "Example: with 32 heel stitches the parts are 10 + 12 + 10, or 11 + 10 + 11.",
+      "Always work a DS as one stitch, and insert the needle so the stitches do not twist."
+    ]
+  },
+  "s-leg-how": {
+    "items": [
+      "Switch to stockinette (knit every round), or keep the ribbing for a stretchier fit.",
+      "Knit until the leg measures 10 to 15 cm from the cast-on edge, or the height you like.",
+      "Write the height down (row number). You need it again for sock two."
+    ]
+  },
+  "s-leg-watch": {
+    "items": [
+      "If you have two sets of needles (or a spare cord), I suggest that after finishing the leg, you also finish the leg of the second sock. Otherwise you may fall victim to the second-sock curse."
+    ]
+  },
+  "s-leg-what": {
+    "text": "The tube above the heel. The easiest part: the same round, over and over. Here you can add any design you want. It can stop at the heel or continue through the gusset and foot."
+  },
+  "s-toe-how": {
+    "items": [
+      "Split the stitches into two halves: instep and sole. Make sure you split them evenly so the seam turns out to be horizontal.",
+      "On each half: knit 1, slip-slip-knit, knit to the last 3 stitches, knit 2 together, knit 1.",
+      "Decrease on every second round at first, then on every round as the toe narrows. I usually forget and decrease every other round right till the end.",
+      "Stop at about 16 stitches, 8 on top and 8 underneath.",
+      "Close with Kitchener stitch. Or turn the sock inside out and use a three-needle bind-off, which leaves a ridge inside."
+    ]
+  },
+  "s-toe-watch": {
+    "items": [
+      "Leave a long tail, about 30 cm, for the Kitchener seam so you do not run out halfway.",
+      "Better to leave the tail longer and cut it than to run out. Trust me."
+    ]
+  }
+};          /* texts saved from the editable version, baked in for the static site */
+  var editing = false;
+  var dbRef = null;
+  var chain = Promise.resolve();
+  var currentId = 'cuff';
+
+  function txt(key, def) { var d = OVR[key]; return d && typeof d.text === 'string' ? d.text : def; }
+  function lst(key, def) {
+    var d = OVR[key];
+    return d && Array.isArray(d.items) ? d.items.filter(function (x) { return typeof x === 'string'; }) : def;
+  }
+  function same(a, b) { return a.length === b.length && a.every(function (x, i) { return x === b[i]; }); }
+  function clean(s) { return s.replace(/\s+/g, ' ').trim(); }
+  function status(msg) { statusEl.textContent = msg; }
+
+  function persist(key, data) {
+    if (data === null && !OVR[key]) return;
+    if (data === null) { delete OVR[key]; } else { OVR[key] = data; }
+    if (!dbRef) { status("Can't save here."); return; }
+    status('Saving…');
+    chain = chain.then(function () {
+      var ref = dbRef.doc('content/' + key);
+      return data === null ? ref.delete() : ref.set(data);
+    }).then(function () { status('Saved'); }, function (e) {
+      status("Couldn't save (" + ((e && e.code) || 'error') + ')');
+    });
+  }
+
+  /* ---------- static texts ---------- */
+  var statics = Array.prototype.slice.call(document.querySelectorAll('[data-edit]'));
+  statics.forEach(function (el) { el.dataset.orig = el.textContent.trim(); });
+  function applyStatic() {
+    statics.forEach(function (el) { el.textContent = txt(el.dataset.edit, el.dataset.orig); });
+  }
+
+  function setEditable(root) {
+    Array.prototype.forEach.call(root.querySelectorAll('[data-edit], .t'), function (el) {
+      if (editing) {
+        el.setAttribute('contenteditable', 'plaintext-only');
+        if (el.contentEditable !== 'plaintext-only') el.setAttribute('contenteditable', 'true');
+      } else {
+        el.removeAttribute('contenteditable');
+      }
+    });
+  }
+
+  /* ---------- chips ---------- */
+  function nameOf(s) { return txt('s-' + s.id + '-name', s.name); }
+  STEPS.forEach(function (s) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'chip';
+    b.setAttribute('data-go', s.id);
+    var n = document.createElement('span'); n.className = 'n'; n.textContent = s.n;
+    var l = document.createElement('span'); l.className = 'lbl';
+    b.appendChild(n); b.appendChild(l);
+    chips.appendChild(b);
+  });
+  function updateChips() {
+    Array.prototype.forEach.call(chips.children, function (c) {
+      c.lastChild.textContent = nameOf(byId[c.getAttribute('data-go')]).replace(' and sock two', ' + sock 2');
+    });
+  }
+
+  /* ---------- step panel ---------- */
+  function mk(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function editText(el, key, def) {
+    el.dataset.edit = key;
+    el.dataset.orig = def;
+    el.textContent = txt(key, def);
+    return el;
+  }
+  function buildLi(text) {
+    var li = document.createElement('li');
+    li.appendChild(mk('span', 't', text));
+    var x = mk('button', 'x', '×');
+    x.type = 'button';
+    x.setAttribute('aria-label', 'Remove this item');
+    li.appendChild(x);
+    return li;
+  }
+  function listBlock(tag, cls, key, defItems) {
+    var list = mk(tag, cls);
+    list.dataset.list = key;
+    DEFLIST[key] = defItems;
+    lst(key, defItems).forEach(function (t) { list.appendChild(buildLi(t)); });
+    return list;
+  }
+  function addButton(key, label) {
+    var b = mk('button', 'add', label);
+    b.type = 'button';
+    b.dataset.add = key;
+    return b;
+  }
+
+  /* Heel figure: every line is one row, every square one stitch (5 right, 5 centre, 5 left). */
+  function heelFigure() {
+    var NS = 'http://www.w3.org/2000/svg';
+    var N = 15, S = 5, C = 5;
+    var X0 = 84, W = 576, sw = W / N, rh = 14, step = 17;
+    function sv(tag, attrs, parent) {
+      var e = document.createElementNS(NS, tag);
+      Object.keys(attrs).forEach(function (k) { e.setAttribute(k, attrs[k]); });
+      if (parent) parent.appendChild(e);
+      return e;
+    }
+    var shortRows = [{ a: 1, b: N }, { a: 1, b: N }];
+    for (var k = 1; k <= S; k++) {
+      shortRows.push({ a: k, b: N - k });
+      shortRows.push({ a: k + 1, b: N - k });
+    }
+    var parts = [[1, S, 'seg-r', 'Right'], [S + 1, S + C, 'seg-c', 'Centre'], [S + C + 1, N, 'seg-l', 'Left']];
+
+    var fig = mk('figure', 'heel-fig');
+    var svg = sv('svg', { role: 'img', 'aria-label': 'Heel rows as bars. They get shorter one stitch per row until only the centre is left, then a full round, then they get longer again.' });
+    fig.appendChild(svg);
+
+    parts.forEach(function (p) {
+      var x = X0 + (N - p[1]) * sw, w = (p[1] - p[0] + 1) * sw;
+      var t = sv('text', { x: x + w / 2, y: 36, 'text-anchor': 'middle' }, svg);
+      t.textContent = p[3] + ' · ' + (p[1] - p[0] + 1);
+      sv('rect', { x: x + 1, y: 43, width: w - 2, height: 4, class: p[2] }, svg);
+    });
+
+    /* arrows: the knitting runs from the right edge to the left edge, at the start and again at the end */
+    function arrow(yy, text) {
+      sv('line', { x1: X0 + W - 2, y1: yy, x2: X0 + 10, y2: yy, class: 'arrow' }, svg);
+      sv('polygon', { points: X0 + ',' + yy + ' ' + (X0 + 14) + ',' + (yy - 6) + ' ' + (X0 + 14) + ',' + (yy + 6), class: 'arrow-head' }, svg);
+      var at = sv('text', { x: 0, y: yy + 4, class: 'fig-label' }, svg);
+      at.textContent = text;
+    }
+    arrow(12, 'Start');
+
+    var y = 58;
+    function bar(r, dir) {
+      parts.forEach(function (p) {
+        var lo = Math.max(r.a, p[0]), hi = Math.min(r.b, p[1]);
+        for (var q = lo; q <= hi; q++) {
+          sv('rect', { x: X0 + (N - q) * sw + 1, y: y, width: sw - 2, height: rh, rx: 2, class: p[2] }, svg);
+        }
+      });
+      var turn = dir === 'rs' ? r.b : r.a;
+      sv('circle', { cx: X0 + (N - turn + 0.5) * sw, cy: y + rh / 2, r: 3.5, class: 'ring' }, svg);
+      y += step;
+    }
+    function label(text, from, to) {
+      var t = sv('text', { x: 0, y: (from + to) / 2 + 4, class: 'fig-label' }, svg);
+      t.textContent = text;
+    }
+
+    var y0 = y;
+    shortRows.forEach(function (r, i) { bar(r, i % 2 === 0 ? 'rs' : 'ws'); });
+    label('Shorten', y0, y);
+
+    y += 8;
+    var yr = y;
+    sv('rect', { x: X0, y: y, width: W, height: rh, class: 'round-bar' }, svg);
+    y += step;
+    label('Round', yr, y);
+
+    y += 8;
+    var y1 = y;
+    for (var i = shortRows.length - 2, n = 0; i >= 2; i--, n++) {
+      /* the same rows in reverse, mirrored, because lengthening starts on the left side */
+      bar({ a: N + 1 - shortRows[i].b, b: N + 1 - shortRows[i].a }, n % 2 === 0 ? 'rs' : 'ws');
+    }
+    label('Lengthen', y1, y);
+
+    y += 6;
+    arrow(y + 6, 'End');
+    y += 12;
+
+    svg.setAttribute('viewBox', '0 0 ' + (X0 + W) + ' ' + (y + 4));
+    fig.appendChild(editText(mk('figcaption'), 'heel-fig-caption',
+      'Schematic, read from top to bottom and seen from below, the way you knit it. Each line is one row and each square is one stitch, drawn for 15 heel stitches (5 + 5 + 5). Rings mark the double stitches where you turn. The dashed line is the full round through the instep stitches. The arrows show the direction of the knitting at the start and at the end.'));
+    return fig;
+  }
+
+  var pendingFocus = null;
+  function renderContent(id) {
+    var s = byId[id], pre = 's-' + id + '-';
+    content.textContent = '';
+
+    var eb = mk('p', 'eyebrow');
+    eb.appendChild(document.createTextNode('Step ' + s.n + ' of ' + STEPS.length + ' · '));
+    eb.appendChild(editText(mk('span'), pre + 'kind', s.kind));
+    content.appendChild(eb);
+    content.appendChild(editText(mk('h2'), pre + 'name', s.name));
+    content.appendChild(editText(mk('p', 'lead'), pre + 'what', s.what));
+    if (id === 'heel') content.appendChild(heelFigure());
+
+    content.appendChild(editText(mk('h3'), 'how-label', 'How to knit it'));
+    content.appendChild(listBlock('ol', 'how', pre + 'how', s.how));
+    content.appendChild(addButton(pre + 'how', '+ Add a step'));
+
+    content.appendChild(editText(mk('h3'), pre + 'watchlabel', s.watchLabel));
+    content.appendChild(listBlock('ul', 'watch', pre + 'watch', s.watch));
+    content.appendChild(addButton(pre + 'watch', '+ Add a note'));
+
+    var media = mk('div', 'media');
+    media.appendChild(editText(mk('p', 'media-title'), 'media-title', 'Video for this step'));
+    var url = txt(pre + 'video', '');
+    if (/^https?:\/\//i.test(url)) {
+      var a = mk('a', 'btn primary', 'Watch video');
+      a.href = url; a.target = '_blank'; a.rel = 'noopener noreferrer';
+      media.appendChild(a);
+    } else {
+      media.appendChild(editText(mk('p', 'media-note'), 'media-note', 'Prototype placeholder. A link to your video for this step goes here.'));
+      var g = mk('span', 'btn ghost', 'Watch video (coming soon)');
+      g.setAttribute('aria-disabled', 'true');
+      media.appendChild(g);
+    }
+    var vf = mk('div', 'vfield');
+    var lab = mk('label', null, 'Video link for this step');
+    lab.htmlFor = 'video-url';
+    var inp = document.createElement('input');
+    inp.id = 'video-url'; inp.type = 'url'; inp.placeholder = 'https://…';
+    inp.value = /^https?:\/\//i.test(url) ? url : '';
+    vf.appendChild(lab); vf.appendChild(inp);
+    media.appendChild(vf);
+    content.appendChild(media);
+
+    setEditable(content);
+
+    if (pendingFocus) {
+      var ul = content.querySelector('[data-list="' + pendingFocus + '"]');
+      pendingFocus = null;
+      if (ul && ul.lastChild) focusSpan(ul.lastChild.firstChild);
+    }
+  }
+  function focusSpan(span) {
+    span.focus();
+    var r = document.createRange();
+    r.selectNodeContents(span);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(r);
+  }
+
+  function renderPager(id) {
+    var i = STEPS.indexOf(byId[id]), prev = STEPS[i - 1], next = STEPS[i + 1];
+    pager.textContent = '';
+    var b = mk('button', 'btn', 'Back: ' + (prev ? nameOf(prev) : 'Before you start'));
+    b.type = 'button';
+    b.setAttribute('data-go', prev ? prev.id : 'start');
+    pager.appendChild(b);
+    if (next) {
+      var n = mk('button', 'btn primary', 'Next: ' + nameOf(next));
+      n.type = 'button';
+      n.setAttribute('data-go', next.id);
+      pager.appendChild(n);
+    }
+  }
+
+  /* ---------- routing ---------- */
+  function go(id) {
+    scrollOnShow = true;
+    if (location.hash === '#' + id) { route(); } else { location.hash = id; }
+  }
+
+  function showStart() {
+    viewStart.hidden = false;
+    viewSock.hidden = true;
+    tabStart.setAttribute('aria-selected', 'true');
+    tabSock.setAttribute('aria-selected', 'false');
+  }
+
+  function showStep(id) {
+    currentId = id;
+    viewStart.hidden = true;
+    viewSock.hidden = false;
+    tabStart.setAttribute('aria-selected', 'false');
+    tabSock.setAttribute('aria-selected', 'true');
+
+    svg.classList.toggle('all', id === 'finish');
+    parts.forEach(function (p) {
+      p.setAttribute('aria-pressed', p.getAttribute('data-id') === id ? 'true' : 'false');
+    });
+    Array.prototype.forEach.call(chips.children, function (c) {
+      if (c.getAttribute('data-go') === id) { c.setAttribute('aria-current', 'step'); }
+      else { c.removeAttribute('aria-current'); }
+    });
+    updateChips();
+    renderContent(id);
+    renderPager(id);
+  }
+
+  function route() {
+    var h = location.hash.slice(1);
+    if (h === 'start') { showStart(); }
+    else { showStep(byId[h] ? h : 'cuff'); }
+    if (scrollOnShow) {
+      scrollOnShow = false;
+      if (window.matchMedia('(max-width: 819px)').matches) {
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var target = viewStart.hidden ? panel : viewStart;
+        target.scrollIntoView({ block: 'start', behavior: reduce ? 'auto' : 'smooth' });
+      }
+    }
+  }
+
+  /* ---------- saving edits ---------- */
+  function saveText(el) {
+    var key = el.dataset.edit, orig = el.dataset.orig;
+    var val = clean(el.textContent);
+    var cur = txt(key, orig);
+    if (val === '' || val === orig) {
+      el.textContent = orig;
+      persist(key, null);
+    } else {
+      el.textContent = val;
+      if (val !== cur) persist(key, { text: val });
+    }
+    updateChips();
+    renderPager(currentId);
+  }
+
+  function listItems(ul) {
+    return Array.prototype.map.call(ul.querySelectorAll('.t'), function (s) { return clean(s.textContent); })
+      .filter(function (t) { return t !== ''; });
+  }
+  function saveList(ul) {
+    Array.prototype.slice.call(ul.querySelectorAll('li')).forEach(function (li) {
+      if (clean(li.firstChild.textContent) === '') li.remove();
+    });
+    var key = ul.dataset.list, def = DEFLIST[key];
+    var items = listItems(ul);
+    if (same(items, lst(key, def))) return;
+    persist(key, same(items, def) ? null : { items: items });
+  }
+
+  document.addEventListener('focusout', function (e) {
+    if (!editing || !e.target.closest) return;
+    var el = e.target.closest('[data-edit]');
+    if (el && el.hasAttribute('contenteditable')) { saveText(el); return; }
+    var span = e.target.closest('.t');
+    if (span && span.closest('[data-list]')) saveList(span.closest('[data-list]'));
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (!editing || e.key !== 'Enter' || e.isComposing) return;
+    var t = e.target;
+    if (t.closest && t.closest('[contenteditable]')) { e.preventDefault(); t.blur(); }
+  });
+
+  document.addEventListener('paste', function (e) {
+    if (!editing) return;
+    var t = e.target;
+    if (!(t.closest && t.closest('[contenteditable]'))) return;
+    e.preventDefault();
+    var text = ((e.clipboardData || window.clipboardData).getData('text/plain') || '').replace(/\s*\n\s*/g, ' ');
+    document.execCommand('insertText', false, text);
+  });
+
+  document.addEventListener('change', function (e) {
+    if (e.target.id !== 'video-url') return;
+    var v = e.target.value.trim();
+    if (v && !/^https?:\/\//i.test(v)) { status('The link must start with https://'); return; }
+    persist('s-' + currentId + '-video', v ? { text: v } : null);
+    renderContent(currentId);
+  });
+
+  /* ---------- clicks ---------- */
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    if (!t.closest) return;
+    if (editing && t.closest('label[data-edit]')) e.preventDefault();
+
+    var x = t.closest('.x');
+    if (x) {
+      var ul = x.closest('[data-list]');
+      x.closest('li').remove();
+      saveList(ul);
+      return;
+    }
+    var add = t.closest('.add');
+    if (add) {
+      var list = content.querySelector('[data-list="' + add.dataset.add + '"]');
+      var li = buildLi(/-how$/.test(add.dataset.add) ? 'New step' : 'New note');
+      list.appendChild(li);
+      setEditable(li);
+      focusSpan(li.firstChild);
+      return;
+    }
+    var g = t.closest('[data-go], [data-id]');
+    if (!g) return;
+    var id = g.getAttribute('data-go') || g.getAttribute('data-id');
+    if (id) go(id);
+  });
+  parts.forEach(function (p) {
+    p.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        go(p.getAttribute('data-id'));
+      }
+    });
+  });
+  tabStart.addEventListener('click', function () { go('start'); });
+  tabSock.addEventListener('click', function () { go(currentId); });
+  window.addEventListener('hashchange', route);
+
+  /* ---------- edit mode ---------- */
+  function setEditing(on) {
+    if (!on && document.activeElement && document.activeElement.blur) document.activeElement.blur();
+    editing = on;
+    document.body.classList.toggle('editing', on);
+    toggle.setAttribute('aria-pressed', on ? 'true' : 'false');
+    toggle.textContent = on ? 'Done editing' : 'Edit text';
+    if (!on) { applyStatic(); renderContent(currentId); updateChips(); renderPager(currentId); }
+    setEditable(document);
+  }
+  toggle.addEventListener('click', function () { setEditing(!editing); });
+
+  function onData(snap) {
+    OVR = {};
+    snap.docs.forEach(function (d) { OVR[d.id] = d.data() || {}; });
+    updateChips();
+    renderPager(currentId);
+    if (!editing) { applyStatic(); renderContent(currentId); }
+  }
+
+  (async function connect() {
+    try {
+      if (!window.claude || !window.claude.use) return;
+      var db = await window.claude.use('db');
+      var user = await window.claude.use('user');
+      if (!db) return;
+      dbRef = db;
+      var loadTimer = setTimeout(function () { status("Can't reach saved edits yet."); }, 10000);
+      db.collection('content').onSnapshot(function (snap) {
+        if (!snap.metadata.fromCache) clearTimeout(loadTimer);
+        onData(snap);
+      }, function () { clearTimeout(loadTimer); });
+      var owner = user ? await user.isOwner() : false;
+      if (owner) bar.hidden = false;
+    } catch (err) { /* the page works with its original text */ }
+  })();
+
+  /* ---------- stitch calculator ---------- */
+  function stitchCount(circumferenceCm, gaugePer10cm) {
+    var raw = circumferenceCm * (gaugePer10cm / 10) * 0.9;
+    var n = Math.round(raw / 4) * 4;
+    return Math.max(n, 4);
+  }
+  var circ = $('#circ'), gauge = $('#gauge'), cast = $('#cast');
+  function update() {
+    var c = parseFloat(circ.value), g = parseFloat(gauge.value);
+    cast.textContent = (c > 0 && g > 0) ? String(stitchCount(c, g)) : '–';
+  }
+  circ.addEventListener('input', update);
+  gauge.addEventListener('input', update);
+  update();
+
+  route();
+})();
+</script>
+</body>
+</html>
