@@ -1,0 +1,36 @@
+/* Colours and fonts. Sock colours echo self-striping sock yarn: teal body, mustard heel and toe, rose gusset. */
+:root {
+  --bg: #EDF1EF;
+  --ink: #16272A;
+  --muted: #52666A;
+  --line: #C7D3D0;
+  --panel: #F8FAF9;
+  --accent: #1D6A67;
+  --accent-ink: #FFFFFF;
+  --c-cuff: #23585A;
+  --c-leg: #4F8B83;
+  --c-heel: #D79A27;
+  --c-gusset: #C8647E;
+  --c-foot: #86B5A8;
+  --c-toe: #D79A27;
+  --display: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
+  --body: 'Figtree', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #101C1E;
+    --ink: #E7EFEC;
+    --muted: #9DB1AD;
+    --line: #2B3E40;
+    --panel: #162427;
+    --accent: #58B7B2;
+    --accent-ink: #0E1B1D;
+    --c-cuff: #4AA19E;
+    --c-leg: #37716A;
+    --c-heel: #E3AE49;
+    --c-gusset: #D6728B;
+    --c-foot: #5D998B;
+    --c-toe: #E3AE49;
+    color-scheme: dark;
+  }
+}

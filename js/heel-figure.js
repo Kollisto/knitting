@@ -4,9 +4,9 @@
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 
-const SIDE = 5;
-const CENTRE = 5;
-const STITCHES = 2 * SIDE + CENTRE;
+export const SIDE = 5;
+export const CENTRE = 5;
+export const STITCHES = 2 * SIDE + CENTRE;
 
 /* Geometry, in SVG units. */
 const LABEL_COLUMN = 84;                  /* room on the left for the row-group labels */
@@ -35,7 +35,7 @@ function svgEl(tag, attrs, parent) {
 
 /* The rows of the shortening half. Two full rows, then each row ends one stitch earlier than the last.
    Rows alternate between right side and wrong side, and the turning stitch is the one at the end of the row. */
-function shorteningRows() {
+export function shorteningRows() {
   const spans = [{ first: 1, last: STITCHES }, { first: 1, last: STITCHES }];
   for (let k = 1; k <= SIDE; k++) {
     spans.push({ first: k, last: STITCHES - k }, { first: k + 1, last: STITCHES - k });
@@ -45,7 +45,7 @@ function shorteningRows() {
 
 /* The lengthening half is the shortening half played backwards and mirrored,
    without the two full rows and the last row (that one is the full round). */
-function lengtheningRows() {
+export function lengtheningRows() {
   const mirrored = shorteningRows().slice(2, -1).reverse().map((row) => ({
     first: STITCHES + 1 - row.last,
     last: STITCHES + 1 - row.first,

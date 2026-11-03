@@ -6,13 +6,27 @@ Pick a part of the sock and read how to knit it. English and Russian.
 ## Structure
 
 ```
-index.html            the page: markup only, no words
-style.css             all styles (light and dark theme)
-js/app.js             draws the page, routing (URL hash), language switch
-js/heel-figure.js     the heel schematic (an SVG built from a model of the rows)
-js/calculator.js      how many stitches to cast on
-content/en.json       every word on the page, English
-content/ru.json       every word on the page, Russian
+index.html              the page: markup only, no words
+css/                    styles, one file per part of the page
+  theme.css             colours and fonts (light and dark)
+  base.css              reset, buttons
+  header.css            title, language switch, tabs
+  sock.css              the sock drawing and the step chips
+  panel.css             the step text, lists, video box, pager
+  start.css             "Before you start" and the stitch calculator
+  heel-figure.css       the heel schematic
+js/                     the code, as ES modules
+  app.js                routing (the URL hash is the page), events, start-up
+  view.js               puts texts and steps on the page
+  i18n.js               loads content/*.json and knows the current language
+  heel-figure.js        the heel schematic, built from a model of the rows
+  calculator.js         how many stitches to cast on (2x2 or 1x1 ribbing)
+  constants.js          the step order and the languages
+  dom.js                small DOM helpers
+content/                every word on the page
+  en.json
+  ru.json
+tests/                  checks for the calculator, the heel rows and the texts
 ```
 
 ## Changing the texts
@@ -27,7 +41,7 @@ To add a video to a step, add `"video": "https://…"` to that step in each lang
 
 ## Adding a language
 
-Copy `content/en.json` to `content/<code>.json`, translate it, add the code to `LANGUAGES` in `js/app.js`
+Copy `content/en.json` to `content/<code>.json`, translate it, add the code to `LANGUAGES` in `js/constants.js`
 and add a button with `data-lang="<code>"` next to the others in `index.html`.
 
 ## Running locally
@@ -39,6 +53,14 @@ python3 -m http.server 8000
 ```
 
 Then open http://localhost:8000.
+
+## Tests
+
+```
+npm test
+```
+
+They check that English and Russian have the same structure, that every text the page asks for exists, and that the calculator and the heel rows behave.
 
 ## Publishing
 
