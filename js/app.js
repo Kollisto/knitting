@@ -56,8 +56,9 @@ function scrollIntoViewOnPhones() {
 
 function route() {
   const hash = location.hash.slice(1);
-  if (hash === START) showTab(true);
-  else showStep(STEP_IDS.includes(hash) ? hash : FIRST_STEP);
+  /* A step's address opens that step. Anything else, including no address, opens "Before you start". */
+  if (STEP_IDS.includes(hash)) showStep(hash);
+  else showTab(true);
   scrollIntoViewOnPhones();
 }
 
