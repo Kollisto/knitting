@@ -7,7 +7,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Figtree:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/header.css">
+<link rel="stylesheet" href="css/sock.css">
+<link rel="stylesheet" href="css/panel.css">
+<link rel="stylesheet" href="css/start.css">
+<link rel="stylesheet" href="css/heel-figure.css">
 </head>
 <body>
 
@@ -23,13 +29,13 @@
       <button type="button" data-lang="ru" aria-pressed="false">RU</button>
     </div>
     <div class="tabs" role="tablist" data-i18n-aria="ui.tabsAria">
-      <button class="tab" id="tab-start" role="tab" aria-selected="false" aria-controls="view-start" type="button" data-i18n="ui.tabStart"></button>
-      <button class="tab" id="tab-sock" role="tab" aria-selected="true" aria-controls="view-sock" type="button" data-i18n="ui.tabSock"></button>
+      <button class="tab" id="tab-start" role="tab" aria-selected="true" aria-controls="view-start" type="button" data-i18n="ui.tabStart"></button>
+      <button class="tab" id="tab-sock" role="tab" aria-selected="false" aria-controls="view-sock" type="button" data-i18n="ui.tabSock"></button>
     </div>
     </div>
   </header>
 
-  <section id="view-start" role="tabpanel" aria-labelledby="tab-start" hidden>
+  <section id="view-start" role="tabpanel" aria-labelledby="tab-start">
     <p class="intro" data-i18n="page.intro"></p>
     <div class="start-grid">
       <div>
@@ -70,6 +76,13 @@
           <label for="gauge" data-i18n="page.gauge-label"></label>
           <input id="gauge" type="number" inputmode="decimal" min="10" max="60" step="0.5" value="32">
         </div>
+        <div class="field">
+          <label for="ribbing" data-i18n="page.ribbing-label"></label>
+          <select id="ribbing">
+            <option value="2x2">2x2</option>
+            <option value="1x1">1x1</option>
+          </select>
+        </div>
       </div>
       <p class="result" aria-live="polite"><span data-i18n="page.cast-pre"></span><strong id="cast">64</strong><span data-i18n="page.cast-post"></span></p>
       <p class="fine" data-i18n="page.calc-fine"></p>
@@ -78,7 +91,7 @@
     <div class="start-cta"><button class="btn primary" type="button" data-go="cuff" data-i18n="ui.cta"></button></div>
   </section>
 
-  <section id="view-sock" class="sock-view" role="tabpanel" aria-labelledby="tab-sock">
+  <section id="view-sock" class="sock-view" role="tabpanel" aria-labelledby="tab-sock" hidden>
     <div class="sock-col">
       <svg id="sock" viewBox="60 0 360 420" role="group" data-i18n-aria="ui.sockAria">
         <defs>
@@ -113,11 +126,11 @@
         <rect clip-path="url(#sockclip)" x="70" y="10" width="190" height="52" fill="url(#rib)" pointer-events="none"/>
         <path d="M110,20 L230,20 L230,248 C232,285 262,300 300,300 L348,300 C382,300 396,328 396,350 C396,380 376,396 346,396 L142,396 C104,396 85,376 85,340 C85,300 110,290 110,250 Z" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" pointer-events="none"/>
 
-        <g class="badge" data-id="cuff"><circle cx="170" cy="41" r="15"/><text x="170" y="41">1</text></g>
-        <g class="badge" data-id="leg"><circle cx="170" cy="138" r="15"/><text x="170" y="138">2</text></g>
-        <g class="badge" data-id="heel"><circle cx="135" cy="320" r="15"/><text x="135" y="320">3</text></g>
-        <g class="badge" data-id="gusset"><circle cx="258" cy="350" r="15"/><text x="258" y="350">4</text></g>
-        <g class="badge" data-id="toe"><circle cx="362" cy="345" r="15"/><text x="362" y="345">5</text></g>
+        <g class="badge" data-id="cuff"><circle cx="170" cy="41" r="15"/><text x="170" y="41"></text></g>
+        <g class="badge" data-id="leg"><circle cx="170" cy="138" r="15"/><text x="170" y="138"></text></g>
+        <g class="badge" data-id="heel"><circle cx="135" cy="320" r="15"/><text x="135" y="320"></text></g>
+        <g class="badge" data-id="gusset"><circle cx="258" cy="350" r="15"/><text x="258" y="350"></text></g>
+        <g class="badge" data-id="toe"><circle cx="362" cy="345" r="15"/><text x="362" y="345"></text></g>
       </svg>
       <div class="chips" id="chips" role="group" data-i18n-aria="ui.chipsAria"></div>
     </div>

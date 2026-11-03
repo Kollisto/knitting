@@ -1,0 +1,13 @@
+/* heel figure */
+.heel-fig { margin: 22px 0 0; max-width: 60ch; }
+.heel-fig svg { display: block; width: 100%; height: auto; }
+.heel-fig text { font: 600 12px var(--body); fill: var(--ink); }
+.heel-fig .fig-label { fill: var(--muted); font-weight: 500; }
+.heel-fig .seg-r { fill: var(--c-leg); }
+.heel-fig .seg-c { fill: var(--c-heel); }
+.heel-fig .seg-l { fill: var(--c-gusset); }
+.heel-fig .ring { fill: var(--bg); }
+.heel-fig .arrow { stroke: var(--ink); stroke-width: 2; }
+.heel-fig .arrow-head { fill: var(--ink); }
+.heel-fig .round-bar { fill: none; stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 5 3; }
+.heel-fig figcaption { margin-top: 8px; color: var(--muted); font-size: 0.9rem; }

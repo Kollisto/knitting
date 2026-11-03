@@ -1,0 +1,29 @@
+/* A large side-view sock beside one part's instructions. Tap a part or a chip and the panel changes. */
+/* sock view */
+.sock-view { display: grid; gap: 28px; grid-template-columns: minmax(0, 1fr); align-items: start; }
+@media (min-width: 820px) {
+  .sock-view { grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); gap: 48px; }
+  .sock-col { position: sticky; top: 24px; }
+}
+.sock-col { min-width: 0; }
+#sock { display: block; width: 100%; max-width: 440px; height: auto; margin: 0 auto; }
+.part { cursor: pointer; opacity: 0.38; transition: opacity 0.15s; }
+.part:hover { opacity: 0.7; }
+.part[aria-pressed="true"], #sock.all .part { opacity: 1; }
+.part:focus-visible { outline: none; }
+.part:focus-visible .shape { stroke: var(--ink); stroke-width: 6; }
+.z-cuff { fill: var(--c-cuff); }
+.z-leg { fill: var(--c-leg); }
+.z-heel { fill: var(--c-heel); }
+.z-foot { fill: var(--c-foot); }
+.z-toe { fill: var(--c-toe); }
+.badge circle { fill: var(--ink); }
+.badge text { fill: var(--bg); font: 700 15px var(--display); text-anchor: middle; dominant-baseline: central; pointer-events: none; }
+.badge { cursor: pointer; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; justify-content: center; }
+.chip { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px 6px 6px; border: 1.5px solid var(--line); background: none; border-radius: 999px; cursor: pointer; font-weight: 500; font-size: 0.9rem; min-height: 40px; }
+.chip .n { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--line); font: 700 0.8rem var(--display); }
+.chip:hover { border-color: var(--muted); }
+.chip[aria-current="step"] { border-color: var(--ink); background: var(--panel); }
+.chip[aria-current="step"] .n { background: var(--ink); color: var(--bg); }

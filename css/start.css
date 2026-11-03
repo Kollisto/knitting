@@ -1,0 +1,15 @@
+/* start view */
+.intro { max-width: 58ch; font-size: 1.1rem; }
+.start-grid { display: grid; gap: 28px 40px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); margin-top: 32px; }
+.start-grid > div { min-width: 0; }
+.start-grid h3 { margin-bottom: 8px; }
+.start-grid p + p { margin-top: 8px; }
+.fine { color: var(--muted); font-size: 0.9rem; }
+.calc { margin-top: 40px; padding-top: 28px; border-top: 1px solid var(--line); max-width: 560px; }
+.calc .fields { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 14px; }
+.field { display: flex; flex-direction: column; gap: 4px; font-weight: 500; font-size: 0.92rem; min-width: 0; flex: 1 1 200px; }
+.field input, .field select { font: inherit; font-size: 16px; font-weight: 400; padding: 10px 12px; border: 1.5px solid var(--line); border-radius: 6px; background: var(--panel); color: var(--ink); width: 100%; min-width: 0; }
+.field input:focus-visible, .field select:focus-visible { outline-offset: 0; }
+.result { margin-top: 16px; font-size: 1.15rem; }
+.result strong { font: 700 2rem var(--display); font-variant-numeric: tabular-nums; margin: 0 4px; }
+.start-cta { margin-top: 36px; }

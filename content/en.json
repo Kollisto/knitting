@@ -52,9 +52,10 @@
     "calc-note": "Example numbers are filled in. Swap in your own.",
     "circ-label": "Foot circumference (cm)",
     "gauge-label": "Gauge (stitches per 10 cm)",
+    "ribbing-label": "Ribbing",
     "cast-pre": "Cast on",
     "cast-post": "stitches",
-    "calc-fine": "This takes 10% off the foot circumference so the sock hugs the foot, then rounds to a multiple of 4 for 2x2 ribbing."
+    "calc-fine": "This takes 10% off the foot circumference so the sock hugs the foot, then rounds to a multiple of 4 for 2x2 ribbing, or to an even number for 1x1 ribbing."
   },
   "steps": {
     "cuff": {
