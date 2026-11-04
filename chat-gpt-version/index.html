@@ -3,93 +3,106 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#fffaf0">
-<title>Простой носок — KOLLISTO</title>
+<meta name="theme-color" content="#fffafc">
+<title>Свяжем носок — KOLLISTO</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header class="site-header">
-  <a class="brand" href="./" aria-label="Kollisto home"><span>KOLLISTO <i>✦</i></span><small>knitting tutorials</small></a>
+<header class="topbar">
+  <a class="brand" href="./" aria-label="KOLLISTO"><span class="brand-mark">♡</span><span><b>Свяжем носок</b><small>пошаговый туториал</small></span></a>
+  <nav class="topnav" aria-label="Разделы">
+    <a class="active" href="#tutorial"><span>▤</span><span data-ui="tabSock">Туториал</span></a>
+    <a href="#calculator"><span>▦</span><span data-ui="tabCalc">Калькулятор петель</span></a>
+    <a href="#about"><span>ⓘ</span><span data-ui="tabAbout">О проекте</span></a>
+  </nav>
   <div class="language" aria-label="Language"><button data-lang="ru" class="active">RU</button><button data-lang="en">EN</button></div>
 </header>
-<main>
-  <section class="hero">
-    <div class="yarn-doodle left" aria-hidden="true">◎<span>〰</span></div>
-    <div><p class="eyebrow" data-page="sub"></p><h1 data-page="title"></h1><p class="hero-sub" data-hero-sub></p></div>
-    <div class="yarn-doodle right" aria-hidden="true">〰</div>
+
+<main id="tutorial" class="page-grid">
+  <section class="tutorial-card">
+    <div class="sock-area">
+      <p class="instruction-hint" data-ui="diagramHint">Нажми на часть носка,<br>чтобы узнать, как её вязать</p>
+      <svg class="sock-art" viewBox="0 0 540 590" role="group" aria-label="Интерактивная схема носка">
+        <defs>
+          <path id="sock-shape" d="M150 42 Q150 25 169 25 L326 25 Q345 25 345 44 L345 306 Q345 341 372 361 L455 423 Q493 452 474 493 Q456 532 414 519 Q393 513 373 500 L181 404 Q145 386 145 348 L145 58 Q145 42 150 42Z"/>
+          <clipPath id="sock-mask"><use href="#sock-shape"/></clipPath>
+          <linearGradient id="sock-shadow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".22"/><stop offset="1" stop-color="#8d78a8" stop-opacity=".12"/></linearGradient>
+          <linearGradient id="cuff-shade" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d9c4f2"/><stop offset="1" stop-color="#b99cdd"/></linearGradient>
+          <linearGradient id="leg-shade" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffd0d7"/><stop offset="1" stop-color="#f3aebf"/></linearGradient>
+          <linearGradient id="heel-shade" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffe0a0"/><stop offset="1" stop-color="#f4c878"/></linearGradient>
+          <linearGradient id="foot-shade" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d8ebd1"/><stop offset="1" stop-color="#b8d7b4"/></linearGradient>
+          <pattern id="knit" width="13" height="16" patternUnits="userSpaceOnUse">
+            <path d="M3 2 Q6 5 9 2 M3 9 Q6 12 9 9" fill="none" stroke="#fff" stroke-width="1.6" opacity=".46" stroke-linecap="round"/>
+          </pattern>
+          <pattern id="rib" width="12" height="12" patternUnits="userSpaceOnUse"><path d="M3 0V12 M8 0V12" stroke="#fff" stroke-width="2.2" opacity=".62"/></pattern>
+          <filter id="sock-drop" x="-30%" y="-20%" width="170%" height="170%"><feGaussianBlur stdDeviation="12"/></filter>
+        </defs>
+        <ellipse cx="292" cy="508" rx="170" ry="28" fill="#bba8c7" opacity=".15" filter="url(#sock-drop)"/>
+        <g clip-path="url(#sock-mask)">
+          <path class="sock-zone zone-leg" data-id="leg" tabindex="0" role="button" aria-label="Голенище" d="M140 85 Q245 91 350 82 L350 308 Q350 345 374 361 L244 430 L135 367Z"/>
+          <path class="sock-zone zone-cuff" data-id="cuff" tabindex="0" role="button" aria-label="Манжета" d="M135 18H355V112H135Z"/>
+          <path class="sock-zone zone-heel" data-id="heel" tabindex="0" role="button" aria-label="Пятка" d="M135 330 Q112 370 145 402 Q166 424 205 415 L270 389 L245 462 L142 425 Q105 408 105 375Z"/>
+          <path class="sock-zone zone-foot" data-id="gusset" tabindex="0" role="button" aria-label="Стопа" d="M205 400 Q265 380 345 326 L378 361 L468 428 Q488 448 478 478 L407 525 L180 414Z"/>
+          <path class="sock-zone zone-toe" data-id="toe" tabindex="0" role="button" aria-label="Мысок" d="M378 361 L468 428 Q493 450 474 493 Q456 532 414 519 L373 500 L407 525 L478 478Z"/>
+          <rect x="90" y="10" width="420" height="550" fill="url(#knit)" pointer-events="none"/>
+          <path d="M135 18H355V112H135Z" fill="url(#rib)" pointer-events="none"/>
+          <use href="#sock-shape" fill="url(#sock-shadow)" pointer-events="none"/>
+        </g>
+        <use href="#sock-shape" class="sock-outline"/>
+        <path class="sock-detail" d="M145 110 Q250 119 345 112 M345 306 Q336 344 372 361 M205 400 Q171 424 145 402"/>
+        <g class="sock-label label-cuff"><path d="M330 72H395"/><circle cx="412" cy="72" r="14"/><text x="412" y="77">1</text><text x="435" y="78" data-label="cuff">Манжета</text></g>
+        <g class="sock-label label-leg"><path d="M340 205H395"/><circle cx="412" cy="205" r="14"/><text x="412" y="210">2</text><text x="435" y="211" data-label="leg">Голенище</text></g>
+        <g class="sock-label label-heel"><path d="M145 380H45"/><circle cx="30" cy="380" r="14"/><text x="30" y="385">3</text><text x="52" y="386" data-label="heel">Пятка</text></g>
+        <g class="sock-label label-foot"><path d="M315 438H395"/><circle cx="412" cy="438" r="14"/><text x="412" y="443">4</text><text x="435" y="444" data-label="gusset">Стопа</text></g>
+        <g class="sock-label label-toe"><path d="M445 505H470"/><circle cx="487" cy="505" r="14"/><text x="487" y="510">5</text></g>
+      </svg>
+      <nav class="step-nav" id="step-nav" aria-label="Этапы вязания"></nav>
+    </div>
+
+    <article class="lesson-panel" aria-live="polite">
+      <div id="lesson-content">
+        <span class="step-count">ШАГ 1 ИЗ 5</span><h1>Манжета</h1><p class="lead">Начнём с верхней части носка.</p>
+      </div>
+      <div class="lesson-actions"><button class="prev-btn" id="prev-step" aria-label="Предыдущий шаг">←</button><button class="next-btn" id="next-step">Следующий шаг <span>→</span></button></div>
+    </article>
   </section>
 
-  <section class="tutorial-shell" aria-label="Sock tutorial">
-    <div class="lesson-layout">
-      <div class="sock-column">
-        <svg class="sock-map" viewBox="0 0 620 600" role="group" aria-label="Interactive sock diagram">
-          <defs>
-            <path id="sock-silhouette" d="M153 42 Q153 28 169 30 L365 45 Q381 47 379 64 L357 292 Q354 326 378 347 L472 423 Q510 453 490 494 Q472 535 431 529 Q410 527 384 512 L143 397 Q101 377 115 338 L145 65 Q147 48 153 42Z"/>
-            <clipPath id="sockClip"><use href="#sock-silhouette"/></clipPath>
-            <pattern id="knitTexture" width="12" height="15" patternUnits="userSpaceOnUse">
-              <path d="M2 2q4 4 8 0M2 8q4 4 8 0" fill="none" stroke="#fff" stroke-width="1.2" opacity=".38" stroke-linecap="round"/>
-            </pattern>
-            <pattern id="ribTexture" width="13" height="13" patternUnits="userSpaceOnUse">
-              <path d="M3 0v13M9 0v13" stroke="#fff" stroke-width="2" opacity=".62"/>
-            </pattern>
-            <linearGradient id="sockPaper" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#fff" stop-opacity=".18"/><stop offset="1" stop-color="#8b6bb3" stop-opacity=".08"/>
-            </linearGradient>
-          </defs>
-          <g clip-path="url(#sockClip)">
-            <path class="sock-zone leg" data-id="leg" tabindex="0" role="button" aria-label="Leg" d="M145 83 L380 100 L356 292 Q353 327 378 347 L245 410 L105 345Z"/>
-            <path class="sock-zone cuff" data-id="cuff" tabindex="0" role="button" aria-label="Cuff" d="M145 25 L390 42 L383 112 L139 94Z"/>
-            <path class="sock-zone heel" data-id="heel" tabindex="0" role="button" aria-label="Heel" d="M105 324 Q75 363 111 397 Q130 415 163 410 L245 410 L178 454 L78 400Z"/>
-            <path class="sock-zone foot" data-id="gusset" tabindex="0" role="button" aria-label="Foot" d="M178 390 L356 292 L378 347 L480 424 L422 522 L143 397Z"/>
-            <path class="sock-zone toe" data-id="toe" tabindex="0" role="button" aria-label="Toe" d="M378 347 L510 430 Q510 480 490 510 Q469 544 425 529 L384 512 L422 522Z"/>
-            <rect x="65" y="20" width="470" height="540" fill="url(#knitTexture)" pointer-events="none"/>
-            <path d="M145 25L390 42 383 112 139 94Z" fill="url(#ribTexture)" pointer-events="none"/>
-            <use href="#sock-silhouette" fill="url(#sockPaper)" pointer-events="none"/>
-          </g>
-          <use href="#sock-silhouette" class="sock-outline"/>
-          <path class="sock-seam" d="M145 94Q260 105 383 112M356 292Q340 336 378 347M178 390Q155 414 143 397" />
-          <g class="map-label"><path d="M370 78H438"/><circle cx="455" cy="78" r="15"/><text x="455" y="83">1</text><text x="480" y="84" class="label-text" data-label="cuff"></text></g>
-          <g class="map-label"><path d="M355 205H438"/><circle cx="455" cy="205" r="15"/><text x="455" y="210">2</text><text x="480" y="211" class="label-text" data-label="leg"></text></g>
-          <g class="map-label"><path d="M126 375H438"/><circle cx="455" cy="375" r="15"/><text x="455" y="380">3</text><text x="480" y="381" class="label-text" data-label="heel"></text></g>
-          <g class="map-label"><path d="M335 445H438"/><circle cx="455" cy="445" r="15"/><text x="455" y="450">4</text><text x="480" y="451" class="label-text" data-label="gusset"></text></g>
-          <g class="map-label"><path d="M450 510H500"/><circle cx="517" cy="510" r="15"/><text x="517" y="515">5</text><text x="542" y="516" class="label-text" data-label="toe"></text></g>
-        </svg>
-        <p class="diagram-hint" data-ui="diagramHint"></p>
-      </div>
-      <article class="lesson-card" aria-live="polite">
-        <div id="lesson-content"></div>
-        <div class="lesson-actions"><button class="arrow-btn" id="prev-step" aria-label="Previous step">←</button><button class="next-btn" id="next-step"></button></div>
-      </article>
+  <aside class="calculator-card" id="calculator">
+    <div class="calc-heading"><span class="calc-icon">▦</span><h2 data-page="calc-h">Калькулятор петель</h2></div>
+    <p class="calc-intro" data-ui="calcIntro">Рассчитайте количество петель для вашего носка</p>
+    <div class="measure-drawing" aria-hidden="true">
+      <svg viewBox="0 0 300 270">
+        <path d="M104 20 Q104 12 112 12 H190 Q198 12 198 20 L193 125 Q192 147 213 162 L255 191 Q276 207 265 229 Q252 252 229 239 L84 174 Q58 162 62 137 L100 27Z" fill="none" stroke="#77727e" stroke-width="2.4" stroke-linejoin="round"/>
+        <path d="M104 20 Q150 26 198 20 L196 47 Q150 52 101 47Z" fill="none" stroke="#77727e" stroke-width="1.5"/>
+        <path d="M113 17v30m10-29v30m10-29v30m10-29v30m10-29v30m10-29v30m10-29v30m10-29v30" stroke="#a7a0aa" stroke-width="1.2"/>
+        <path d="M45 134 Q68 139 93 159 M195 145 Q180 164 169 177" fill="none" stroke="#aaa4af" stroke-width="1.3" stroke-dasharray="3 4"/>
+        <path d="M232 62V175 M226 69l6-7 6 7 M226 168l6 7 6-7" fill="none" stroke="#9b77d5" stroke-width="1.8"/>
+        <path d="M80 175 Q117 151 155 185" fill="none" stroke="#9b77d5" stroke-width="2" stroke-dasharray="5 5"/>
+        <circle cx="80" cy="175" r="4" fill="#9b77d5"/><circle cx="155" cy="185" r="4" fill="#9b77d5"/>
+        <text x="242" y="124" fill="#9274c4" font-size="12">см</text>
+      </svg>
     </div>
-    <nav class="step-nav" id="step-nav" aria-label="Tutorial steps"></nav>
-    <section class="info-grid" id="info-grid"></section>
-    <section class="calculator">
-      <div class="calc-illustration" aria-hidden="true">
-        <svg viewBox="0 0 150 190">
-          <path d="M38 12L105 17 100 105Q100 119 116 134L131 151Q143 166 129 177Q116 187 103 174L29 119Q16 108 22 91L34 20Q35 13 38 12Z" fill="none" stroke="#34333b" stroke-width="2.4" stroke-linejoin="round"/>
-          <path d="M38 12L105 17 101 37 34 32Z" fill="none" stroke="#34333b" stroke-width="1.7"/>
-          <path d="M45 13v17m9-16v17m9-16v17m9-16v17m9-16v17m9-16v17" stroke="#34333b" stroke-width="1.3"/>
-          <path d="M23 91q15 9 24 24m54-10q-4 14-14 20m42 24q-10 8-21 7" fill="none" stroke="#aaa5af" stroke-width="1.5" stroke-dasharray="3 3"/>
-          <path d="M110 3v29m-4-4 4 4 4-4" fill="none" stroke="#34333b" stroke-width="1.4"/>
-        </svg>
-      </div>
-      <div class="calc-content">
-        <h2 data-page="calc-h"></h2><p data-page="calc-note"></p>
-        <div class="calc-fields">
-          <label><span data-page="circ-label"></span><input id="circ" type="number" min="10" max="40" step=".5" value="22"></label>
-          <label><span data-page="gauge-label"></span><input id="gauge" type="number" min="10" max="60" step=".5" value="32"></label>
-          <label><span data-page="ribbing-label"></span><select id="ribbing"><option value="2x2">2×2</option><option value="1x1">1×1</option></select></label>
-        </div>
-        <div class="calc-result"><span data-page="cast-pre"></span> <strong id="cast">64</strong> <span data-page="cast-post"></span><small data-page="calc-fine"></small></div>
-      </div>
-      <button class="calculate-btn" id="calculate"></button>
-    </section>
-  </section>
-  <footer>KOLLISTO <span>✦</span> <small>knitting tutorials</small></footer>
+    <div class="calc-fields">
+      <label><span data-page="circ-label">Обхват стопы (см)</span><input id="circ" type="number" min="10" max="40" step=".5" value="22"></label>
+      <label><span data-ui="footLength">Длина стопы (см)</span><input id="foot-length" type="number" min="10" max="40" step=".5" value="24"></label>
+      <label><span data-page="gauge-label">Плотность вязания</span><input id="gauge" type="number" min="10" max="60" step=".5" value="30"></label>
+      <label><span data-page="ribbing-label">Резинка</span><select id="ribbing"><option value="2x2">2×2</option><option value="1x1">1×1</option></select></label>
+    </div>
+    <div class="calc-result"><span data-page="cast-pre">Рекомендуемое количество петель</span><strong id="cast">56</strong><span data-page="cast-post">петель</span><small id="calc-fine"></small></div>
+    <p class="calc-footnote" data-ui="calcFootnote">Это расчётное значение. Перед началом свяжите образец.</p>
+  </aside>
 </main>
+
+<section class="below-grid" id="about">
+  <div class="materials-card"><h2><span>✿</span><span data-page="kit-h">Что понадобится</span></h2><p data-page="kit-1"></p></div>
+  <div class="materials-card"><h2><span>🧶</span><span data-page="yarn-h">Пряжа</span></h2><p data-page="yarn-1"></p><p data-page="yarn-2"></p></div>
+  <div class="materials-card"><h2><span>✧</span><span data-page="needles-h">Спицы</span></h2><p data-page="needles-1"></p><p data-page="needles-2"></p></div>
+  <div class="materials-card"><h2><span>♡</span><span data-page="skills-h">Навыки</span></h2><p data-page="skills-1"></p></div>
+</section>
+<footer><span class="footer-heart">♡</span> KOLLISTO <small>made for your first pair</small></footer>
 <script src="app.js"></script>
 </body>
 </html>
