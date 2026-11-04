@@ -69,3 +69,8 @@ $("#calculate").addEventListener("click",renderCalc);
   $("#calculate").textContent=lang==="ru"?"Рассчитать":"Calculate";
  }catch(err){console.error(err);$("#lesson-content").textContent="Could not load tutorial content.";}
 })();
+document.addEventListener("keydown",e=>{
+ if((e.key==="Enter"||e.key===" ")&&e.target.matches(".sock-zone[role=button]")){
+  e.preventDefault();renderStep(e.target.dataset.id);
+ }
+});

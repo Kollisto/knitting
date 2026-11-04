@@ -25,27 +25,37 @@
   <section class="tutorial-shell" aria-label="Sock tutorial">
     <div class="lesson-layout">
       <div class="sock-column">
-        <svg class="sock-map" viewBox="0 0 600 590" role="group" aria-label="Interactive sock diagram">
+        <svg class="sock-map" viewBox="0 0 620 600" role="group" aria-label="Interactive sock diagram">
           <defs>
-            <clipPath id="sockClip"><path d="M142 35 Q142 25 155 28 L292 42 Q306 44 304 60 L286 310 Q282 347 316 370 L438 430 Q483 451 480 495 Q477 540 434 548 Q404 553 374 533 L145 394 Q105 370 116 324 L140 52 Q141 42 142 35Z"/></clipPath>
-            <pattern id="knitTexture" width="13" height="16" patternUnits="userSpaceOnUse"><path d="M2 2l4 10 5-10" fill="none" stroke="#fff" stroke-width="1.5" opacity=".5" stroke-linecap="round"/></pattern>
-            <pattern id="ribTexture" width="12" height="12" patternUnits="userSpaceOnUse"><path d="M3 0v12M8 0v12" stroke="#fff" stroke-width="2" opacity=".5"/></pattern>
+            <path id="sock-silhouette" d="M153 42 Q153 28 169 30 L365 45 Q381 47 379 64 L357 292 Q354 326 378 347 L472 423 Q510 453 490 494 Q472 535 431 529 Q410 527 384 512 L143 397 Q101 377 115 338 L145 65 Q147 48 153 42Z"/>
+            <clipPath id="sockClip"><use href="#sock-silhouette"/></clipPath>
+            <pattern id="knitTexture" width="12" height="15" patternUnits="userSpaceOnUse">
+              <path d="M2 2q4 4 8 0M2 8q4 4 8 0" fill="none" stroke="#fff" stroke-width="1.2" opacity=".38" stroke-linecap="round"/>
+            </pattern>
+            <pattern id="ribTexture" width="13" height="13" patternUnits="userSpaceOnUse">
+              <path d="M3 0v13M9 0v13" stroke="#fff" stroke-width="2" opacity=".62"/>
+            </pattern>
+            <linearGradient id="sockPaper" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#fff" stop-opacity=".18"/><stop offset="1" stop-color="#8b6bb3" stop-opacity=".08"/>
+            </linearGradient>
           </defs>
           <g clip-path="url(#sockClip)">
-            <path class="sock-zone leg" data-id="leg" d="M125 60L310 55 286 310 170 385 105 345Z"/>
-            <path class="sock-zone cuff" data-id="cuff" d="M125 15L320 35 310 105 125 88Z"/>
-            <path class="sock-zone heel" data-id="heel" d="M105 315L170 365 270 425 160 455 65 385Z"/>
-            <path class="sock-zone foot" data-id="gusset" d="M170 365L286 310 455 405 390 510 160 455Z"/>
-            <path class="sock-zone toe" data-id="toe" d="M390 420L520 455 500 580 365 540 390 510Z"/>
-            <rect x="70" y="15" width="470" height="560" fill="url(#knitTexture)" pointer-events="none"/>
-            <rect x="120" y="15" width="210" height="100" fill="url(#ribTexture)" pointer-events="none"/>
+            <path class="sock-zone leg" data-id="leg" tabindex="0" role="button" aria-label="Leg" d="M145 83 L380 100 L356 292 Q353 327 378 347 L245 410 L105 345Z"/>
+            <path class="sock-zone cuff" data-id="cuff" tabindex="0" role="button" aria-label="Cuff" d="M145 25 L390 42 L383 112 L139 94Z"/>
+            <path class="sock-zone heel" data-id="heel" tabindex="0" role="button" aria-label="Heel" d="M105 324 Q75 363 111 397 Q130 415 163 410 L245 410 L178 454 L78 400Z"/>
+            <path class="sock-zone foot" data-id="gusset" tabindex="0" role="button" aria-label="Foot" d="M178 390 L356 292 L378 347 L480 424 L422 522 L143 397Z"/>
+            <path class="sock-zone toe" data-id="toe" tabindex="0" role="button" aria-label="Toe" d="M378 347 L510 430 Q510 480 490 510 Q469 544 425 529 L384 512 L422 522Z"/>
+            <rect x="65" y="20" width="470" height="540" fill="url(#knitTexture)" pointer-events="none"/>
+            <path d="M145 25L390 42 383 112 139 94Z" fill="url(#ribTexture)" pointer-events="none"/>
+            <use href="#sock-silhouette" fill="url(#sockPaper)" pointer-events="none"/>
           </g>
-          <path class="sock-outline" d="M142 35 Q142 25 155 28 L292 42 Q306 44 304 60 L286 310 Q282 347 316 370 L438 430 Q483 451 480 495 Q477 540 434 548 Q404 553 374 533 L145 394 Q105 370 116 324 L140 52 Q141 42 142 35Z"/>
-          <g class="map-label"><path d="M300 73H390"/><circle cx="408" cy="73" r="15"/><text x="408" y="78">1</text><text x="432" y="79" class="label-text" data-label="cuff"></text></g>
-          <g class="map-label"><path d="M286 190H390"/><circle cx="408" cy="190" r="15"/><text x="408" y="195">2</text><text x="432" y="196" class="label-text" data-label="leg"></text></g>
-          <g class="map-label"><path d="M160 390H390"/><circle cx="408" cy="390" r="15"/><text x="408" y="395">3</text><text x="432" y="396" class="label-text" data-label="heel"></text></g>
-          <g class="map-label"><path d="M350 460H390"/><circle cx="408" cy="460" r="15"/><text x="408" y="465">4</text><text x="432" y="466" class="label-text" data-label="gusset"></text></g>
-          <g class="map-label"><path d="M440 520H490"/><circle cx="508" cy="520" r="15"/><text x="508" y="525">5</text><text x="530" y="526" class="label-text" data-label="toe"></text></g>
+          <use href="#sock-silhouette" class="sock-outline"/>
+          <path class="sock-seam" d="M145 94Q260 105 383 112M356 292Q340 336 378 347M178 390Q155 414 143 397" />
+          <g class="map-label"><path d="M370 78H438"/><circle cx="455" cy="78" r="15"/><text x="455" y="83">1</text><text x="480" y="84" class="label-text" data-label="cuff"></text></g>
+          <g class="map-label"><path d="M355 205H438"/><circle cx="455" cy="205" r="15"/><text x="455" y="210">2</text><text x="480" y="211" class="label-text" data-label="leg"></text></g>
+          <g class="map-label"><path d="M126 375H438"/><circle cx="455" cy="375" r="15"/><text x="455" y="380">3</text><text x="480" y="381" class="label-text" data-label="heel"></text></g>
+          <g class="map-label"><path d="M335 445H438"/><circle cx="455" cy="445" r="15"/><text x="455" y="450">4</text><text x="480" y="451" class="label-text" data-label="gusset"></text></g>
+          <g class="map-label"><path d="M450 510H500"/><circle cx="517" cy="510" r="15"/><text x="517" y="515">5</text><text x="542" y="516" class="label-text" data-label="toe"></text></g>
         </svg>
         <p class="diagram-hint" data-ui="diagramHint"></p>
       </div>
