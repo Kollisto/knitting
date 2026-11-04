@@ -1,7 +1,11 @@
 const STEP_IDS=["cuff","leg","heel","gusset","toe","finish"];
 const MAP_IDS=["cuff","leg","heel","gusset","toe"];
 let lang=localStorage.getItem("kollisto-chat-lang")||"ru",content={},currentStep="cuff";
-const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const $=s=>document.querySelector(s),$=s=>[...document.querySelectorAll(s)];
+const EXTRA_UI={
+ ru:{tabCalc:"Калькулятор петель",tabAbout:"О проекте",calcIntro:"Рассчитайте количество петель для вашего носка",footLength:"Длина стопы (см)",calcFootnote:"Это расчётное значение. Перед началом свяжите образец."},
+ en:{tabCalc:"Stitch calculator",tabAbout:"About",calcIntro:"Calculate the number of stitches for your sock",footLength:"Foot length (cm)",calcFootnote:"This is an estimate. Knit a gauge swatch before you begin."}
+};
 const get=path=>path.split(".").reduce((o,k)=>o?.[k],content[lang])??path.split(".").reduce((o,k)=>o?.[k],content.en);
 const page=k=>get("page."+k),ui=k=>get("ui."+k),step=id=>get("steps."+id);
 const safe=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -9,7 +13,7 @@ function renderStatic(){
  document.documentElement.lang=lang;
  $$("[data-lang]").forEach(b=>b.classList.toggle("active",b.dataset.lang===lang));
  $$("[data-page]").forEach(el=>{const v=page(el.dataset.page);if(v!==undefined)el.textContent=v;});
- $$("[data-ui]").forEach(el=>{const v=ui(el.dataset.ui);if(v!==undefined)el.textContent=v;});
+ $$("[data-ui]").forEach(el=>{const v=ui(el.dataset.ui)??EXTRA_UI[lang]?.[el.dataset.ui];if(v!==undefined)el.textContent=v;});
  const hint=lang==="ru"?"Нажми на часть носка,\nчтобы узнать, как её вязать":"Choose a part of the sock\nto see how it is knitted";
  $(".instruction-hint").textContent=hint;
  renderNav();renderStep(currentStep);renderCalc();
