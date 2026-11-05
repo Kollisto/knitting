@@ -4,9 +4,11 @@
 .sub { color: var(--muted); margin-top: 6px; max-width: 34ch; }
 .tools { display: flex; align-items: center; gap: 4px; }
 .lang { display: flex; }
-.lang button { font: 700 0.9rem var(--display); min-width: 44px; min-height: 44px; padding: 4px 8px; border: 0; background: none; color: var(--muted); cursor: pointer; }
-.lang button:hover { color: var(--ink); }
-.lang button[aria-pressed="true"] { color: var(--strong); }
+.lang button { font: 700 0.9rem var(--display); min-width: 44px; min-height: 44px; padding: 4px 8px; border: 0; background: none; color: var(--muted); opacity: 0.55; cursor: pointer; }
+.lang button > span { display: inline-block; padding-bottom: 3px; border-bottom: 2px solid transparent; }
+.lang button:hover { opacity: 0.85; }
+.lang button[aria-pressed="true"] { color: var(--strong); opacity: 1; }
+.lang button[aria-pressed="true"] > span { border-bottom-color: var(--accent); }
 .theme-toggle { width: 44px; height: 44px; display: grid; place-items: center; font-size: 1.25rem; line-height: 1; border: 0; background: none; color: var(--muted); cursor: pointer; }
 .theme-toggle:hover { color: var(--strong); }
 .tabs { display: flex; gap: 28px; flex: 1 0 100%; margin-top: 16px; }
