@@ -7,9 +7,9 @@ const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), 'utf
 const content = Object.fromEntries(LANGUAGES.map((lang) => [lang, JSON.parse(read(`content/${lang}.json`))]));
 const html = read('index.html');
 
-/* Every key path, with the length of every list, so that two languages can be compared. */
+/* Every key path. Lists count as one key: each language may have its own number of steps and notes. */
 function shape(value, path = '') {
-  if (Array.isArray(value)) return [`${path}[${value.length}]`];
+  if (Array.isArray(value)) return [`${path}[]`];
   if (value && typeof value === 'object') return Object.entries(value).sort(([a], [b]) => a.localeCompare(b)).flatMap(([k, v]) => shape(v, `${path}/${k}`));
   return [path];
 }

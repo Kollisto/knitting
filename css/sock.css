@@ -1,29 +1,33 @@
 /* A large side-view sock beside one part's instructions. Tap a part or a chip and the panel changes. */
-/* sock view */
-.sock-view { display: grid; gap: 28px; grid-template-columns: minmax(0, 1fr); align-items: start; }
+.sock-view { display: grid; gap: 32px; grid-template-columns: minmax(0, 1fr); align-items: start; }
 @media (min-width: 820px) {
-  .sock-view { grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); gap: 48px; }
+  .sock-view { grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); gap: 56px; }
   .sock-col { position: sticky; top: 24px; }
 }
 .sock-col { min-width: 0; }
 #sock { display: block; width: 100%; max-width: 440px; height: auto; margin: 0 auto; }
-.part { cursor: pointer; opacity: 0.38; transition: opacity 0.15s; }
-.part:hover { opacity: 0.7; }
+.part { cursor: pointer; opacity: 0.55; transition: opacity 0.15s; }
+.part:hover { opacity: 0.85; }
 .part[aria-pressed="true"], #sock.all .part { opacity: 1; }
-.part:focus-visible { outline: none; }
+.part:focus, .part:focus-visible { outline: none; }
+.part { -webkit-tap-highlight-color: transparent; }
 .part:focus-visible .shape { stroke: var(--ink); stroke-width: 6; }
 .z-cuff { fill: var(--c-cuff); }
 .z-leg { fill: var(--c-leg); }
 .z-heel { fill: var(--c-heel); }
 .z-foot { fill: var(--c-foot); }
 .z-toe { fill: var(--c-toe); }
-.badge circle { fill: var(--ink); }
-.badge text { fill: var(--bg); font: 700 15px var(--display); text-anchor: middle; dominant-baseline: central; pointer-events: none; }
+#sock > path[stroke] { stroke: var(--strong); stroke-opacity: 0.8; stroke-width: 3; }
+.badge circle { fill: var(--card); stroke: var(--strong); stroke-width: 2; }
+.badge text { fill: var(--strong); font: 800 15px var(--display); text-anchor: middle; dominant-baseline: central; pointer-events: none; }
 .badge { cursor: pointer; }
 
-.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; justify-content: center; }
-.chip { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px 6px 6px; border: 1.5px solid var(--line); background: none; border-radius: 999px; cursor: pointer; font-weight: 500; font-size: 0.9rem; min-height: 40px; }
-.chip .n { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--line); font: 700 0.8rem var(--display); }
-.chip:hover { border-color: var(--muted); }
-.chip[aria-current="step"] { border-color: var(--ink); background: var(--panel); }
-.chip[aria-current="step"] .n { background: var(--ink); color: var(--bg); }
+.chips { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; margin-top: 28px; }
+.chip { display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 8px 4px; border: 0; background: none; border-radius: var(--radius-sm); cursor: pointer; font-weight: 500; font-size: 0.85rem; line-height: 1.25; text-align: center; color: var(--muted); min-width: 0; }
+.chip .n { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--lav-line); color: var(--strong); font: 800 1rem var(--display); }
+.chip:hover .n { background: var(--accent); color: var(--accent-ink); }
+.chip[aria-current="step"] { color: var(--strong); font-weight: 700; }
+.chip[aria-current="step"] .n { background: var(--strong); color: var(--strong-ink); }
+@media (min-width: 1040px) {
+  .chips { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+}

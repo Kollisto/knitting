@@ -28,7 +28,9 @@
     "howLabel": "How to knit it",
     "mediaTitle": "Video for this step",
     "mediaNote": "A link to the video for this step will go here.",
-    "figCaption": "Schematic, read from top to bottom and seen from below, the way you knit it. Each line is one row and each square is one stitch, drawn for 15 heel stitches (5 + 5 + 5). Rings mark the double stitches where you turn. The dashed line is the full round through the instep stitches. The arrows show the direction of the knitting at the start and at the end."
+    "figCaption": "Schematic, read from top to bottom and seen from below, the way you knit it. Each line is one row and each square is one stitch, drawn for 15 heel stitches (5 + 5 + 5). Rings mark the double stitches where you turn. The dashed line is the full round through the instep stitches. The arrows show the direction of the knitting at the start and at the end.",
+    "themeToDark": "Switch to dark theme",
+    "themeToLight": "Switch to light theme"
   },
   "page": {
     "title": "Sock Map",
@@ -46,6 +48,7 @@
     "skills-h": "Skills",
     "skills-1": "Cast on, knit, purl, 1x1 or 2x2 ribbing, German short rows and binding off. Knit a gauge swatch of about 12 by 12 cm first, then count the stitches across the middle 10 cm. Without it, the sock will not fit.",
     "skills-2": "Personally, I only need the width gauge. You can adjust the length as you go, but it is important that the width fits.",
+    "skills-3": "All the techniques you need will be explained and shown in this lesson.",
     "measure-h": "Measure",
     "measure-1": "Foot circumference at the widest point, and foot length from the back of the heel to the tip of the longest toe.",
     "calc-h": "How many stitches to cast on?",

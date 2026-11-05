@@ -1,15 +1,27 @@
-/* start view */
+/* start view: plain columns with a coloured dot in front of each heading, then the calculator on a soft fill. No outlines. */
 .intro { max-width: 58ch; font-size: 1.1rem; }
-.start-grid { display: grid; gap: 28px 40px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); margin-top: 32px; }
+.start-grid { display: grid; gap: 36px 48px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); margin-top: 36px; }
+/* Wide screens: yarn and small kit in the first column, needles and measure in the second, skills tall in the third. */
+@media (min-width: 900px) {
+  .start-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .start-grid > div:nth-child(1) { grid-area: 1 / 1; }
+  .start-grid > div:nth-child(3) { grid-area: 2 / 1; }
+  .start-grid > div:nth-child(2) { grid-area: 1 / 2; }
+  .start-grid > div:nth-child(5) { grid-area: 2 / 2; }
+  .start-grid > div:nth-child(4) { grid-area: 1 / 3 / span 2; }
+}
 .start-grid > div { min-width: 0; }
-.start-grid h3 { margin-bottom: 8px; }
+.start-grid h3, .calc h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 8px; color: var(--strong); }
+.start-grid h3::before { content: ''; display: inline-block; width: 11px; height: 11px; margin-right: 10px; border-radius: 50%; background: var(--accent); }
 .start-grid p + p { margin-top: 8px; }
-.fine { color: var(--muted); font-size: 0.9rem; }
-.calc { margin-top: 40px; padding-top: 28px; border-top: 1px solid var(--line); max-width: 560px; }
+.fine { color: var(--muted); font-size: 0.95rem; }
+
+.calc { margin-top: 48px; padding: 24px 24px 22px; max-width: 560px; background: var(--lav); border-radius: var(--radius); }
 .calc .fields { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 14px; }
-.field { display: flex; flex-direction: column; gap: 4px; font-weight: 500; font-size: 0.92rem; min-width: 0; flex: 1 1 200px; }
-.field input, .field select { font: inherit; font-size: 16px; font-weight: 400; padding: 10px 12px; border: 1.5px solid var(--line); border-radius: 6px; background: var(--panel); color: var(--ink); width: 100%; min-width: 0; }
+.field { display: flex; flex-direction: column; gap: 4px; font-weight: 500; font-size: 0.95rem; min-width: 0; flex: 1 1 200px; }
+.field input, .field select { font: inherit; font-size: 16px; font-weight: 600; padding: 11px 12px; border: 0; border-radius: var(--radius-sm); background: var(--card); color: var(--ink); width: 100%; min-width: 0; }
 .field input:focus-visible, .field select:focus-visible { outline-offset: 0; }
-.result { margin-top: 16px; font-size: 1.15rem; }
-.result strong { font: 700 2rem var(--display); font-variant-numeric: tabular-nums; margin: 0 4px; }
+.result { margin-top: 18px; text-align: center; font-weight: 600; }
+.result strong { display: block; font: 800 2.6rem var(--display); font-variant-numeric: tabular-nums; margin: 2px 0; color: var(--strong); }
+.calc .fine { margin-top: 10px; }
 .start-cta { margin-top: 36px; }

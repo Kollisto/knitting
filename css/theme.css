@@ -1,36 +1,44 @@
-/* Colours and fonts. Sock colours echo self-striping sock yarn: teal body, mustard heel and toe, rose gusset. */
+/* Colours and fonts. A calm palette with three jobs for colour:
+   deep violet marks what is selected, lavender holds the instructions, butter yellow holds the notes.
+   Everything else is neutral. The sock itself carries the rest of the colour.
+
+   Every colour is written once as light-dark(light, dark). Which one applies follows the device's setting,
+   unless the visitor picked a theme with the switch (js/theme.js sets data-theme on <html>). */
 :root {
-  --bg: #EDF1EF;
-  --ink: #16272A;
-  --muted: #52666A;
-  --line: #C7D3D0;
-  --panel: #F8FAF9;
-  --accent: #1D6A67;
-  --accent-ink: #FFFFFF;
-  --c-cuff: #23585A;
-  --c-leg: #4F8B83;
-  --c-heel: #D79A27;
-  --c-gusset: #C8647E;
-  --c-foot: #86B5A8;
-  --c-toe: #D79A27;
-  --display: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
-  --body: 'Figtree', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  color-scheme: light dark;
+
+  --bg: light-dark(#FFFAF9, #1A1726);
+  --card: light-dark(#FFFFFF, #231F33);
+  --ink: light-dark(#29263D, #ECE8F5);
+  --muted: light-dark(#5E5870, #B0A9C2);
+  --line: light-dark(#EEE7ED, #38324B);
+  --panel: light-dark(#FAF6FE, #2A2540);
+  --accent: light-dark(#7E58C2, #B595EC);
+  --accent-2: light-dark(#8E68CF, #9F7DE0);
+  --accent-ink: light-dark(#FFFFFF, #1A1726);
+  --strong: light-dark(#3B2A66, #E4D8FA);        /* what is selected, and headings */
+  --strong-ink: light-dark(#FFFFFF, #1A1726);
+  --shadow: 0 2px 10px light-dark(rgba(65, 45, 75, 0.06), rgba(0, 0, 0, 0.3));
+  --radius: 14px;
+  --radius-sm: 10px;
+
+  /* Tints: background, border, heading colour. */
+  --lav: light-dark(#F4EFFC, #2A2540);   --lav-line: light-dark(#DDD0F3, #3F3860);   --lav-ink: light-dark(#5B3A9E, #CDB8F5);
+  --sun: light-dark(#FFF8E6, #35301F);   --sun-line: light-dark(#F3DFAE, #544A2A);   --sun-ink: light-dark(#7A4E0C, #EBC775);
+
+  /* Thin stripes on the start cards. */
+  --stripe-sky: light-dark(#8FB0E8, #6F8FD0);
+
+  /* The sock. */
+  --c-cuff: light-dark(#A98BD6, #A68AD6);
+  --c-leg: light-dark(#EE8FAB, #E88CA8);
+  --c-heel: light-dark(#F4B53F, #F2B948);
+  --c-gusset: light-dark(#8FCB88, #8FC98A);
+  --c-foot: light-dark(#A5D69F, #8FC98A);
+  --c-toe: light-dark(#A07BD6, #A98BD6);
+
+  --display: 'Manrope', 'Segoe UI', system-ui, sans-serif;
+  --body: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
 }
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #101C1E;
-    --ink: #E7EFEC;
-    --muted: #9DB1AD;
-    --line: #2B3E40;
-    --panel: #162427;
-    --accent: #58B7B2;
-    --accent-ink: #0E1B1D;
-    --c-cuff: #4AA19E;
-    --c-leg: #37716A;
-    --c-heel: #E3AE49;
-    --c-gusset: #D6728B;
-    --c-foot: #5D998B;
-    --c-toe: #E3AE49;
-    color-scheme: dark;
-  }
-}
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] { color-scheme: dark; }

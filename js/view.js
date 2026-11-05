@@ -3,6 +3,7 @@ import { STEP_IDS } from './constants.js';
 import { $, $$, element } from './dom.js';
 import { currentLanguage, text, ui, stepText } from './i18n.js';
 import { buildHeelFigure } from './heel-figure.js';
+import { renderThemeButton } from './theme.js';
 
 const chips = $('#chips');
 const stepContent = $('#pcontent');
@@ -38,6 +39,7 @@ export function renderStaticTexts() {
     part.setAttribute('aria-label', `${ui('part')} ${stepNumber(id)}, ${stepText(id).name}`);
   });
   languageButtons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === currentLanguage())));
+  renderThemeButton();
 }
 
 export function renderChips(currentStep) {
@@ -54,21 +56,23 @@ function itemList(tag, className, items) {
   return list;
 }
 
+/* A tinted block with a heading; the class says which tint. */
+function block(className, heading, content) {
+  const section = element('section', `block ${className}`);
+  section.append(element('h3', null, heading), content);
+  return section;
+}
+
+// Shown only when the step has a video link; without one there is nothing to show.
 function videoBlock(step) {
-  const block = element('div', 'media');
-  block.appendChild(element('p', 'media-title', ui('mediaTitle')));
-  if (/^https?:\/\//i.test(step.video ?? '')) {
-    const link = element('a', 'btn primary', ui('watchVideo'));
-    link.href = step.video;
-    link.target = '_blank';
-    link.rel = 'noopener noreferrer';
-    block.appendChild(link);
-  } else {
-    const soon = element('span', 'btn ghost', ui('soon'));
-    soon.setAttribute('aria-disabled', 'true');
-    block.append(element('p', 'media-note', ui('mediaNote')), soon);
-  }
-  return block;
+  if (!/^https?:\/\//i.test(step.video ?? '')) return null;
+  const section = element('section', 'block block-video media');
+  const link = element('a', 'btn primary', ui('watchVideo'));
+  link.href = step.video;
+  link.target = '_blank';
+  link.rel = 'noopener noreferrer';
+  section.append(element('h3', null, ui('mediaTitle')), link);
+  return section;
 }
 
 function heelFigure() {
@@ -91,11 +95,9 @@ export function renderStep(id) {
   );
   if (id === 'heel') stepContent.appendChild(heelFigure());
   stepContent.append(
-    element('h3', null, ui('howLabel')),
-    itemList('ol', 'how', step.how),
-    element('h3', null, step.watchLabel),
-    itemList('ul', 'watch', step.watch),
-    videoBlock(step),
+    block('block-how', ui('howLabel'), itemList('ol', 'how', step.how)),
+    block('block-watch', step.watchLabel, itemList('ul', 'watch', step.watch)),
+    ...[videoBlock(step)].filter(Boolean),
   );
 }
 

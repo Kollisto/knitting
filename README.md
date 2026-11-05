@@ -8,7 +8,8 @@ Pick a part of the sock and read how to knit it. English and Russian.
 ```
 index.html              the page: markup only, no words
 css/                    styles, one file per part of the page
-  theme.css             colours and fonts (light and dark)
+  theme.css             colours (light and dark)
+  fonts.css             the font files below
   base.css              reset, buttons
   header.css            title, language switch, tabs
   sock.css              the sock drawing and the step chips
@@ -22,7 +23,9 @@ js/                     the code, as ES modules
   heel-figure.js        the heel schematic, built from a model of the rows
   calculator.js         how many stitches to cast on (2x2 or 1x1 ribbing)
   constants.js          the step order and the languages
+  theme.js              the light / dark switch (theme-init.js applies the saved choice before drawing)
   dom.js                small DOM helpers
+fonts/                  Manrope and DM Sans, served from here (OFL licence files included)
 content/                every word on the page
   en.json
   ru.json
@@ -31,7 +34,7 @@ tests/                  checks for the calculator, the heel rows and the texts
 
 ## Changing the texts
 
-Edit `content/en.json` and `content/ru.json`. Both files have the same structure:
+Edit `content/en.json` and `content/ru.json`. Both files have the same keys. Each language can have its own number of steps and notes in a list, because the texts are written for the language, not translated word for word:
 
 - `page`: the "Before you start" page
 - `steps`: one entry per step (`name`, `chip`, `kind`, `what`, `how`, `watchLabel`, `watch`, and an optional `video` link)
