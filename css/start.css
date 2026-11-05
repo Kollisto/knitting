@@ -1,22 +1,23 @@
-/* start view: one white card per topic with a thin coloured stripe on top, then the calculator */
+/* start view: plain columns with a coloured dot in front of each heading, then the calculator on a soft fill. No outlines. */
 .intro { max-width: 58ch; font-size: 1.1rem; }
-.start-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); margin-top: 28px; }
-.start-grid > div { min-width: 0; padding: 18px 20px 20px; background: var(--card); border: 1px solid var(--line); border-top: 4px solid var(--c-cuff); border-radius: var(--radius); box-shadow: var(--shadow); }
-.start-grid > div:nth-child(5n + 1) { border-top-color: var(--c-leg); }
-.start-grid > div:nth-child(5n + 2) { border-top-color: var(--c-cuff); }
-.start-grid > div:nth-child(5n + 3) { border-top-color: var(--c-foot); }
-.start-grid > div:nth-child(5n + 4) { border-top-color: var(--c-heel); }
-.start-grid > div:nth-child(5n + 5) { border-top-color: var(--stripe-sky); }
+.start-grid { display: grid; gap: 36px 48px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); margin-top: 36px; }
+.start-grid > div { min-width: 0; }
+.start-grid > div:nth-child(5n + 1) { --dot: var(--c-leg); }
+.start-grid > div:nth-child(5n + 2) { --dot: var(--c-cuff); }
+.start-grid > div:nth-child(5n + 3) { --dot: var(--c-foot); }
+.start-grid > div:nth-child(5n + 4) { --dot: var(--c-heel); }
+.start-grid > div:nth-child(5n + 5) { --dot: var(--stripe-sky); }
 .start-grid h3, .calc h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 8px; color: var(--strong); }
+.start-grid h3::before { content: ''; display: inline-block; width: 11px; height: 11px; margin-right: 10px; border-radius: 50%; background: var(--dot); }
 .start-grid p + p { margin-top: 8px; }
 .fine { color: var(--muted); font-size: 0.95rem; }
 
-.calc { margin-top: 20px; padding: 24px 22px; max-width: 560px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+.calc { margin-top: 48px; padding: 24px 24px 22px; max-width: 560px; background: var(--lav); border-radius: var(--radius); }
 .calc .fields { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 14px; }
 .field { display: flex; flex-direction: column; gap: 4px; font-weight: 500; font-size: 0.95rem; min-width: 0; flex: 1 1 200px; }
-.field input, .field select { font: inherit; font-size: 16px; font-weight: 600; padding: 11px 12px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--card); color: var(--ink); width: 100%; min-width: 0; }
+.field input, .field select { font: inherit; font-size: 16px; font-weight: 600; padding: 11px 12px; border: 0; border-radius: var(--radius-sm); background: var(--card); color: var(--ink); width: 100%; min-width: 0; }
 .field input:focus-visible, .field select:focus-visible { outline-offset: 0; }
-.result { margin-top: 18px; padding: 14px; text-align: center; border: 1px solid var(--line); border-radius: var(--radius-sm); font-weight: 600; }
-.result strong { display: block; font: 800 2.4rem var(--display); font-variant-numeric: tabular-nums; margin: 4px 0; color: var(--strong); }
-.calc .fine { margin-top: 12px; }
-.start-cta { margin-top: 28px; }
+.result { margin-top: 18px; text-align: center; font-weight: 600; }
+.result strong { display: block; font: 800 2.6rem var(--display); font-variant-numeric: tabular-nums; margin: 2px 0; color: var(--strong); }
+.calc .fine { margin-top: 10px; }
+.start-cta { margin-top: 36px; }

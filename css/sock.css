@@ -1,10 +1,10 @@
 /* A large side-view sock beside one part's instructions. Tap a part or a chip and the panel changes. */
-.sock-view { display: grid; gap: 20px; grid-template-columns: minmax(0, 1fr); align-items: start; }
+.sock-view { display: grid; gap: 32px; grid-template-columns: minmax(0, 1fr); align-items: start; }
 @media (min-width: 820px) {
-  .sock-view { grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); gap: 24px; }
+  .sock-view { grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); gap: 56px; }
   .sock-col { position: sticky; top: 24px; }
 }
-.sock-col { min-width: 0; padding: 22px 18px 18px; }
+.sock-col { min-width: 0; }
 #sock { display: block; width: 100%; max-width: 440px; height: auto; margin: 0 auto; }
 .part { cursor: pointer; opacity: 0.55; transition: opacity 0.15s; }
 .part:hover { opacity: 0.85; }
@@ -21,12 +21,12 @@
 .badge text { fill: var(--strong); font: 800 15px var(--display); text-anchor: middle; dominant-baseline: central; pointer-events: none; }
 .badge { cursor: pointer; }
 
-.chips { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin-top: 20px; padding: 7px; border: 1px solid var(--line); border-radius: var(--radius); }
+.chips { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; margin-top: 28px; }
 .chip { display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 8px 4px; border: 0; background: none; border-radius: var(--radius-sm); cursor: pointer; font-weight: 500; font-size: 0.85rem; line-height: 1.25; text-align: center; color: var(--muted); min-width: 0; }
-.chip .n { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--card); border: 1px solid var(--line); color: var(--ink); font: 800 1rem var(--display); }
-.chip:hover { background: var(--lav); }
-.chip[aria-current="step"] { background: var(--lav); color: var(--strong); font-weight: 700; }
-.chip[aria-current="step"] .n { background: var(--strong); border-color: var(--strong); color: var(--strong-ink); }
+.chip .n { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--lav); color: var(--ink); font: 800 1rem var(--display); }
+.chip:hover .n { background: var(--lav-line); }
+.chip[aria-current="step"] { color: var(--strong); font-weight: 700; }
+.chip[aria-current="step"] .n { background: var(--strong); color: var(--strong-ink); }
 @media (min-width: 1040px) {
   .chips { grid-template-columns: repeat(6, minmax(0, 1fr)); }
 }
