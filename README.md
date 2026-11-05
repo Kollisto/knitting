@@ -22,6 +22,7 @@ js/                     the code, as ES modules
   heel-figure.js        the heel schematic, built from a model of the rows
   calculator.js         how many stitches to cast on (2x2 or 1x1 ribbing)
   constants.js          the step order and the languages
+  theme.js              the light / dark switch (theme-init.js applies the saved choice before drawing)
   dom.js                small DOM helpers
 content/                every word on the page
   en.json

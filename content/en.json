@@ -28,7 +28,9 @@
     "howLabel": "How to knit it",
     "mediaTitle": "Video for this step",
     "mediaNote": "A link to the video for this step will go here.",
-    "figCaption": "Schematic, read from top to bottom and seen from below, the way you knit it. Each line is one row and each square is one stitch, drawn for 15 heel stitches (5 + 5 + 5). Rings mark the double stitches where you turn. The dashed line is the full round through the instep stitches. The arrows show the direction of the knitting at the start and at the end."
+    "figCaption": "Schematic, read from top to bottom and seen from below, the way you knit it. Each line is one row and each square is one stitch, drawn for 15 heel stitches (5 + 5 + 5). Rings mark the double stitches where you turn. The dashed line is the full round through the instep stitches. The arrows show the direction of the knitting at the start and at the end.",
+    "themeToDark": "Switch to dark theme",
+    "themeToLight": "Switch to light theme"
   },
   "page": {
     "title": "Sock Map",

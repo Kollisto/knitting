@@ -1,59 +1,39 @@
 /* Colours and fonts. Soft pastel palette: lavender for the main accent, and a different tint for each kind of block
-   (how to knit = lavender, notes = butter yellow, video = mint, and so on). The sock uses the same pastels. */
+   (how to knit = lavender, notes = butter yellow, video = mint, and so on). The sock uses the same pastels.
+
+   Every colour is written once as light-dark(light, dark). Which one applies follows the device's setting,
+   unless the visitor picked a theme with the switch (js/theme.js sets data-theme on <html>). */
 :root {
-  --bg: #FFFAF9;
-  --card: #FFFFFF;
-  --ink: #29263D;
-  --muted: #6F687C;
-  --line: #EEE7ED;
-  --panel: #FAF6FE;
-  --accent: #7E58C2;
-  --accent-2: #8E68CF;
-  --accent-ink: #FFFFFF;
-  --shadow: 0 7px 24px rgba(65, 45, 75, 0.06);
+  color-scheme: light dark;
+
+  --bg: light-dark(#FFFAF9, #1A1726);
+  --card: light-dark(#FFFFFF, #231F33);
+  --ink: light-dark(#29263D, #ECE8F5);
+  --muted: light-dark(#6F687C, #A8A1BA);
+  --line: light-dark(#EEE7ED, #38324B);
+  --panel: light-dark(#FAF6FE, #2A2540);
+  --accent: light-dark(#7E58C2, #B595EC);
+  --accent-2: light-dark(#8E68CF, #9F7DE0);
+  --accent-ink: light-dark(#FFFFFF, #1A1726);
+  --shadow: 0 7px 24px light-dark(rgba(65, 45, 75, 0.06), rgba(0, 0, 0, 0.3));
 
   /* Tints: background, border, heading colour. */
-  --lav: #FAF6FE;   --lav-line: #EADFF8;   --lav-ink: #6C47AE;
-  --pink: #FFF3F6;  --pink-line: #F8DCE5;  --pink-ink: #A5435F;
-  --mint: #F2F9EF;  --mint-line: #D9EBD4;  --mint-ink: #46733F;
-  --sun: #FFF9ED;   --sun-line: #F7E5C0;   --sun-ink: #8B5A12;
-  --sky: #F0F4FD;   --sky-line: #DAE3F7;   --sky-ink: #3F5FA0;
+  --lav: light-dark(#FAF6FE, #2A2540);   --lav-line: light-dark(#EADFF8, #3F3860);   --lav-ink: light-dark(#6C47AE, #CDB8F5);
+  --pink: light-dark(#FFF3F6, #35222B);  --pink-line: light-dark(#F8DCE5, #55303F);  --pink-ink: light-dark(#A5435F, #F2A4BB);
+  --mint: light-dark(#F2F9EF, #1F2E24);  --mint-line: light-dark(#D9EBD4, #31483A);  --mint-ink: light-dark(#46733F, #A9D7A4);
+  --sun: light-dark(#FFF9ED, #35301F);   --sun-line: light-dark(#F7E5C0, #544A2A);   --sun-ink: light-dark(#8B5A12, #EBC775);
+  --sky: light-dark(#F0F4FD, #212A3F);   --sky-line: light-dark(#DAE3F7, #33405F);   --sky-ink: light-dark(#3F5FA0, #A8C0F0);
 
-  --c-cuff: #BFA0DC;
-  --c-leg: #F2A7BC;
-  --c-heel: #F7C674;
-  --c-gusset: #A9D7A4;
-  --c-foot: #BDE0B8;
-  --c-toe: #B493D8;
+  /* The sock. */
+  --c-cuff: light-dark(#BFA0DC, #8D73B8);
+  --c-leg: light-dark(#F2A7BC, #CF7F98);
+  --c-heel: light-dark(#F7C674, #D9A64C);
+  --c-gusset: light-dark(#A9D7A4, #7FAE7B);
+  --c-foot: light-dark(#BDE0B8, #7FAE7B);
+  --c-toe: light-dark(#B493D8, #8D73B8);
 
   --display: 'Manrope', 'Segoe UI', system-ui, sans-serif;
   --body: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
 }
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #1A1726;
-    --card: #231F33;
-    --ink: #ECE8F5;
-    --muted: #A8A1BA;
-    --line: #38324B;
-    --panel: #2A2540;
-    --accent: #B595EC;
-    --accent-2: #9F7DE0;
-    --accent-ink: #1A1726;
-    --shadow: 0 7px 24px rgba(0, 0, 0, 0.3);
-
-    --lav: #2A2540;   --lav-line: #3F3860;   --lav-ink: #CDB8F5;
-    --pink: #35222B;  --pink-line: #55303F;  --pink-ink: #F2A4BB;
-    --mint: #1F2E24;  --mint-line: #31483A;  --mint-ink: #A9D7A4;
-    --sun: #35301F;   --sun-line: #544A2A;   --sun-ink: #EBC775;
-    --sky: #212A3F;   --sky-line: #33405F;   --sky-ink: #A8C0F0;
-
-    --c-cuff: #8D73B8;
-    --c-leg: #CF7F98;
-    --c-heel: #D9A64C;
-    --c-gusset: #7FAE7B;
-    --c-foot: #7FAE7B;
-    --c-toe: #8D73B8;
-    color-scheme: dark;
-  }
-}
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] { color-scheme: dark; }

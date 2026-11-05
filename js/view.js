@@ -3,6 +3,7 @@ import { STEP_IDS } from './constants.js';
 import { $, $$, element } from './dom.js';
 import { currentLanguage, text, ui, stepText } from './i18n.js';
 import { buildHeelFigure } from './heel-figure.js';
+import { renderThemeButton } from './theme.js';
 
 const chips = $('#chips');
 const stepContent = $('#pcontent');
@@ -38,6 +39,7 @@ export function renderStaticTexts() {
     part.setAttribute('aria-label', `${ui('part')} ${stepNumber(id)}, ${stepText(id).name}`);
   });
   languageButtons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === currentLanguage())));
+  renderThemeButton();
 }
 
 export function renderChips(currentStep) {
