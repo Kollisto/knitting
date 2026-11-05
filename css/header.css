@@ -6,11 +6,12 @@
 .tabs { display: flex; gap: 6px; }
 .tab { background: none; border: 0; padding: 11px 18px; border-radius: var(--radius-sm); cursor: pointer; font: 700 0.95rem var(--display); color: var(--ink); background: var(--lav); }
 .tab:hover { background: var(--lav-line); }
-.tab[aria-selected="true"] { color: var(--strong-ink); background: var(--strong); }
+.tab[aria-selected="true"]:hover { background: var(--select); }
+.tab[aria-selected="true"] { color: var(--strong); background: var(--select); }
 .tools { display: flex; align-items: center; gap: 8px; }
 .lang { display: flex; gap: 2px; padding: 4px; background: var(--lav); border-radius: var(--radius-sm); }
 .lang button { font: 700 0.85rem var(--display); min-width: 44px; min-height: 36px; padding: 4px 12px; border: 0; border-radius: 7px; background: none; color: var(--muted); cursor: pointer; }
 .lang button:hover { color: var(--ink); }
-.lang button[aria-pressed="true"] { background: var(--strong); color: var(--strong-ink); }
+.lang button[aria-pressed="true"] { background: var(--select); color: var(--strong); }
 .theme-toggle { width: 44px; height: 44px; display: grid; place-items: center; font-size: 1.25rem; line-height: 1; border: 0; border-radius: var(--radius-sm); background: var(--lav); color: var(--strong); cursor: pointer; }
 .theme-toggle:hover { background: var(--lav-line); }
