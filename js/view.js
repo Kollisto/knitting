@@ -54,21 +54,28 @@ function itemList(tag, className, items) {
   return list;
 }
 
+/* A tinted block with a heading; the class says which tint. */
+function block(className, heading, content) {
+  const section = element('section', `block ${className}`);
+  section.append(element('h3', null, heading), content);
+  return section;
+}
+
 function videoBlock(step) {
-  const block = element('div', 'media');
-  block.appendChild(element('p', 'media-title', ui('mediaTitle')));
+  const section = element('section', 'block block-video media');
+  section.appendChild(element('h3', null, ui('mediaTitle')));
   if (/^https?:\/\//i.test(step.video ?? '')) {
     const link = element('a', 'btn primary', ui('watchVideo'));
     link.href = step.video;
     link.target = '_blank';
     link.rel = 'noopener noreferrer';
-    block.appendChild(link);
+    section.appendChild(link);
   } else {
     const soon = element('span', 'btn ghost', ui('soon'));
     soon.setAttribute('aria-disabled', 'true');
-    block.append(element('p', 'media-note', ui('mediaNote')), soon);
+    section.append(element('p', 'media-note', ui('mediaNote')), soon);
   }
-  return block;
+  return section;
 }
 
 function heelFigure() {
@@ -91,10 +98,8 @@ export function renderStep(id) {
   );
   if (id === 'heel') stepContent.appendChild(heelFigure());
   stepContent.append(
-    element('h3', null, ui('howLabel')),
-    itemList('ol', 'how', step.how),
-    element('h3', null, step.watchLabel),
-    itemList('ul', 'watch', step.watch),
+    block('block-how', ui('howLabel'), itemList('ol', 'how', step.how)),
+    block('block-watch', step.watchLabel, itemList('ul', 'watch', step.watch)),
     videoBlock(step),
   );
 }

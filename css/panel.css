@@ -1,17 +1,26 @@
-/* panel */
-.panel { min-width: 0; scroll-margin-top: 16px; }
-.eyebrow { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
-.panel h2 { font-size: clamp(1.9rem, 4vw, 2.5rem); font-weight: 700; margin-top: 8px; }
-.lead { margin-top: 12px; font-size: 1.1rem; max-width: 56ch; }
-.panel h3, .start-grid h3, .calc h3 { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); font-family: var(--body); }
-.panel h3 { margin-top: 28px; }
-.how { margin: 10px 0 0; padding-left: 1.4em; max-width: 60ch; }
-.how li { padding-left: 4px; margin-top: 8px; }
-.how li::marker { font-weight: 700; color: var(--accent); }
-.watch { margin: 10px 0 0; padding: 14px 16px; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; list-style: none; max-width: 60ch; }
-.watch li + li { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line); }
-.media { margin-top: 24px; padding: 18px; border: 1.5px dashed var(--line); border-radius: 6px; max-width: 60ch; }
-.media-title { font-weight: 600; }
-.media-note { color: var(--muted); font-size: 0.92rem; margin-top: 4px; }
+/* panel: the open step, one tinted block for each kind of information */
+.panel { min-width: 0; scroll-margin-top: 16px; padding: 26px 24px 24px; background: var(--card); border: 1px solid var(--line); border-radius: 20px; box-shadow: var(--shadow); }
+.eyebrow { display: inline-block; padding: 6px 13px; border-radius: 12px; background: var(--lav); color: var(--lav-ink); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+.panel h2 { font-size: clamp(1.9rem, 4vw, 2.4rem); font-weight: 800; letter-spacing: -0.035em; margin-top: 18px; }
+.lead { margin-top: 12px; font-size: 1.05rem; line-height: 1.6; }
+
+.block { margin-top: 18px; padding: 17px 19px; border-radius: 17px; border: 1px solid var(--lav-line); background: var(--lav); }
+.block h3 { font-size: 1.05rem; font-weight: 800; margin-bottom: 12px; color: var(--lav-ink); }
+.block-watch { background: var(--sun); border-color: var(--sun-line); }
+.block-watch h3 { color: var(--sun-ink); }
+.block-video { background: var(--mint); border-color: var(--mint-line); border-style: dashed; }
+.block-video h3 { color: var(--mint-ink); margin-bottom: 4px; }
+
+.how { list-style: none; counter-reset: how; margin: 0; padding: 0; }
+.how li { counter-increment: how; display: grid; grid-template-columns: 28px 1fr; gap: 11px; margin-bottom: 12px; align-items: start; }
+.how li:last-child { margin-bottom: 0; }
+.how li::before { content: counter(how); display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); font: 700 0.8rem var(--display); }
+.watch { margin: 0; padding-left: 1.2em; font-size: 0.95rem; }
+.watch li { margin-top: 8px; padding-left: 2px; }
+.watch li:first-child { margin-top: 0; }
+.watch li::marker { color: var(--sun-ink); }
+
+.media-note { color: var(--muted); font-size: 0.92rem; }
 .media .btn { margin-top: 12px; }
-.pager { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.pager { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+.pager .btn.primary { flex: 1 1 200px; justify-content: center; }

@@ -1,36 +1,59 @@
-/* Colours and fonts. Sock colours echo self-striping sock yarn: teal body, mustard heel and toe, rose gusset. */
+/* Colours and fonts. Soft pastel palette: lavender for the main accent, and a different tint for each kind of block
+   (how to knit = lavender, notes = butter yellow, video = mint, and so on). The sock uses the same pastels. */
 :root {
-  --bg: #EDF1EF;
-  --ink: #16272A;
-  --muted: #52666A;
-  --line: #C7D3D0;
-  --panel: #F8FAF9;
-  --accent: #1D6A67;
+  --bg: #FFFAF9;
+  --card: #FFFFFF;
+  --ink: #29263D;
+  --muted: #6F687C;
+  --line: #EEE7ED;
+  --panel: #FAF6FE;
+  --accent: #7E58C2;
+  --accent-2: #8E68CF;
   --accent-ink: #FFFFFF;
-  --c-cuff: #23585A;
-  --c-leg: #4F8B83;
-  --c-heel: #D79A27;
-  --c-gusset: #C8647E;
-  --c-foot: #86B5A8;
-  --c-toe: #D79A27;
-  --display: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
-  --body: 'Figtree', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --shadow: 0 7px 24px rgba(65, 45, 75, 0.06);
+
+  /* Tints: background, border, heading colour. */
+  --lav: #FAF6FE;   --lav-line: #EADFF8;   --lav-ink: #6C47AE;
+  --pink: #FFF3F6;  --pink-line: #F8DCE5;  --pink-ink: #A5435F;
+  --mint: #F2F9EF;  --mint-line: #D9EBD4;  --mint-ink: #46733F;
+  --sun: #FFF9ED;   --sun-line: #F7E5C0;   --sun-ink: #8B5A12;
+  --sky: #F0F4FD;   --sky-line: #DAE3F7;   --sky-ink: #3F5FA0;
+
+  --c-cuff: #BFA0DC;
+  --c-leg: #F2A7BC;
+  --c-heel: #F7C674;
+  --c-gusset: #A9D7A4;
+  --c-foot: #BDE0B8;
+  --c-toe: #B493D8;
+
+  --display: 'Manrope', 'Segoe UI', system-ui, sans-serif;
+  --body: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #101C1E;
-    --ink: #E7EFEC;
-    --muted: #9DB1AD;
-    --line: #2B3E40;
-    --panel: #162427;
-    --accent: #58B7B2;
-    --accent-ink: #0E1B1D;
-    --c-cuff: #4AA19E;
-    --c-leg: #37716A;
-    --c-heel: #E3AE49;
-    --c-gusset: #D6728B;
-    --c-foot: #5D998B;
-    --c-toe: #E3AE49;
+    --bg: #1A1726;
+    --card: #231F33;
+    --ink: #ECE8F5;
+    --muted: #A8A1BA;
+    --line: #38324B;
+    --panel: #2A2540;
+    --accent: #B595EC;
+    --accent-2: #9F7DE0;
+    --accent-ink: #1A1726;
+    --shadow: 0 7px 24px rgba(0, 0, 0, 0.3);
+
+    --lav: #2A2540;   --lav-line: #3F3860;   --lav-ink: #CDB8F5;
+    --pink: #35222B;  --pink-line: #55303F;  --pink-ink: #F2A4BB;
+    --mint: #1F2E24;  --mint-line: #31483A;  --mint-ink: #A9D7A4;
+    --sun: #35301F;   --sun-line: #544A2A;   --sun-ink: #EBC775;
+    --sky: #212A3F;   --sky-line: #33405F;   --sky-ink: #A8C0F0;
+
+    --c-cuff: #8D73B8;
+    --c-leg: #CF7F98;
+    --c-heel: #D9A64C;
+    --c-gusset: #7FAE7B;
+    --c-foot: #7FAE7B;
+    --c-toe: #8D73B8;
     color-scheme: dark;
   }
 }
