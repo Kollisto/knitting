@@ -1,7 +1,16 @@
 /* start view: plain columns with a coloured dot in front of each heading, then the calculator on a soft fill. No outlines. */
 .intro { max-width: 58ch; font-size: 1.1rem; }
-.start-grid { column-width: 300px; column-gap: 48px; margin-top: 36px; }
-.start-grid > div { min-width: 0; break-inside: avoid; margin-bottom: 36px; }
+.start-grid { display: grid; gap: 36px 48px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); margin-top: 36px; }
+/* Wide screens: yarn and small kit in the first column, needles and measure in the second, skills tall in the third. */
+@media (min-width: 900px) {
+  .start-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .start-grid > div:nth-child(1) { grid-area: 1 / 1; }
+  .start-grid > div:nth-child(3) { grid-area: 2 / 1; }
+  .start-grid > div:nth-child(2) { grid-area: 1 / 2; }
+  .start-grid > div:nth-child(5) { grid-area: 2 / 2; }
+  .start-grid > div:nth-child(4) { grid-area: 1 / 3 / span 2; }
+}
+.start-grid > div { min-width: 0; }
 .start-grid h3, .calc h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 8px; color: var(--strong); }
 .start-grid h3::before { content: ''; display: inline-block; width: 11px; height: 11px; margin-right: 10px; border-radius: 50%; background: var(--accent); }
 .start-grid p + p { margin-top: 8px; }
