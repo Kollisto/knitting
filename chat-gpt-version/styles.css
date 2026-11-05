@@ -30,3 +30,10 @@
  .sock-stage{min-height:360px}
  .sock-figure{width:100%}
 }
+
+/* Refined anchors: centers of the five knitted color blocks in the illustration. */
+.h-cuff{--x:49%;--y:20%}
+.h-leg{--x:49%;--y:43%}
+.h-heel{--x:31%;--y:67%}
+.h-foot{--x:62%;--y:77%}
+.h-toe{--x:80%;--y:90%}
