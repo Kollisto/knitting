@@ -12,6 +12,6 @@
 .theme-toggle { width: 44px; height: 44px; display: grid; place-items: center; font-size: 1.25rem; line-height: 1; border: 0; background: none; color: var(--muted); cursor: pointer; }
 .theme-toggle:hover { color: var(--strong); }
 .tabs { display: flex; gap: 28px; flex: 1 0 100%; margin-top: 16px; }
-.tab { background: none; border: 0; border-bottom: 3px solid transparent; padding: 10px 0 7px; min-height: 44px; cursor: pointer; font: 700 1rem var(--display); color: var(--muted); }
+.tab { background: none; border: 0; border-bottom: 2px solid transparent; padding: 10px 0 7px; min-height: 44px; cursor: pointer; font: 700 1rem var(--display); color: var(--muted); }
 .tab:hover { color: var(--ink); }
 .tab[aria-selected="true"] { color: var(--strong); border-bottom-color: var(--accent); }
