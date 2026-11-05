@@ -31,7 +31,7 @@ tests/                  checks for the calculator, the heel rows and the texts
 
 ## Changing the texts
 
-Edit `content/en.json` and `content/ru.json`. Both files have the same structure:
+Edit `content/en.json` and `content/ru.json`. Both files have the same keys. Each language can have its own number of steps and notes in a list, because the texts are written for the language, not translated word for word:
 
 - `page`: the "Before you start" page
 - `steps`: one entry per step (`name`, `chip`, `kind`, `what`, `how`, `watchLabel`, `watch`, and an optional `video` link)
