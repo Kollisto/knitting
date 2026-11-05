@@ -37,3 +37,17 @@
 .h-heel{--x:31%;--y:67%}
 .h-foot{--x:62%;--y:77%}
 .h-toe{--x:80%;--y:90%}
+
+/* Full-area interaction: transparent clipped targets follow the five sock color blocks. */
+.sock-figure{position:relative}
+.sock-photo{position:relative;z-index:0}
+.sock-zone{position:absolute;inset:0;z-index:1;width:100%;height:100%;padding:0;border:0;background:transparent;cursor:pointer;touch-action:manipulation}
+.sock-zone:focus-visible{outline:3px solid #8e68cf;outline-offset:-4px}
+.sock-zone:hover{background:rgba(145,108,207,.10)}
+.zone-cuff{clip-path:polygon(35% 5%,64% 5%,66% 27%,35% 28%)}
+.zone-leg{clip-path:polygon(35% 25%,65% 25%,67% 59%,37% 61%)}
+.zone-heel{clip-path:polygon(12% 55%,40% 57%,48% 75%,34% 84%,14% 75%)}
+.zone-foot{clip-path:polygon(38% 57%,81% 63%,88% 81%,50% 87%,34% 76%)}
+.zone-toe{clip-path:polygon(69% 73%,97% 76%,100% 93%,81% 100%,65% 87%)}
+.hotspot{z-index:3}
+.sock-zone:active{background:rgba(145,108,207,.18)}
