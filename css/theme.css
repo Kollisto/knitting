@@ -23,19 +23,19 @@
   --radius-sm: 10px;
 
   /* Tints: background, border, heading colour. */
-  --lav: light-dark(#F7F3FD, #2A2540);   --lav-line: light-dark(#E3D8F5, #3F3860);   --lav-ink: light-dark(#5B3A9E, #CDB8F5);
+  --lav: light-dark(#F4EFFC, #2A2540);   --lav-line: light-dark(#DDD0F3, #3F3860);   --lav-ink: light-dark(#5B3A9E, #CDB8F5);
   --sun: light-dark(#FFF8E6, #35301F);   --sun-line: light-dark(#F3DFAE, #544A2A);   --sun-ink: light-dark(#7A4E0C, #EBC775);
 
   /* Thin stripes on the start cards. */
   --stripe-sky: light-dark(#8FB0E8, #6F8FD0);
 
   /* The sock. */
-  --c-cuff: light-dark(#A98BD6, #8D73B8);
-  --c-leg: light-dark(#EE8FAB, #CF7F98);
-  --c-heel: light-dark(#F4B53F, #D9A64C);
-  --c-gusset: light-dark(#8FCB88, #7FAE7B);
-  --c-foot: light-dark(#A5D69F, #7FAE7B);
-  --c-toe: light-dark(#A07BD6, #8D73B8);
+  --c-cuff: light-dark(#A98BD6, #A68AD6);
+  --c-leg: light-dark(#EE8FAB, #E88CA8);
+  --c-heel: light-dark(#F4B53F, #F2B948);
+  --c-gusset: light-dark(#8FCB88, #8FC98A);
+  --c-foot: light-dark(#A5D69F, #8FC98A);
+  --c-toe: light-dark(#A07BD6, #A98BD6);
 
   --display: 'Manrope', 'Segoe UI', system-ui, sans-serif;
   --body: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;

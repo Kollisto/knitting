@@ -4,8 +4,8 @@
 .sub { color: var(--muted); margin-top: 6px; max-width: 34ch; }
 .top-right { display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
 .tabs { display: flex; gap: 6px; }
-.tab { background: none; border: 0; padding: 11px 18px; border-radius: var(--radius-sm); cursor: pointer; font: 700 0.95rem var(--display); color: var(--muted); }
-.tab:hover { color: var(--ink); background: var(--lav); }
+.tab { background: none; border: 0; padding: 11px 18px; border-radius: var(--radius-sm); cursor: pointer; font: 700 0.95rem var(--display); color: var(--ink); background: var(--lav); }
+.tab:hover { background: var(--lav-line); }
 .tab[aria-selected="true"] { color: var(--strong-ink); background: var(--strong); }
 .tools { display: flex; align-items: center; gap: 8px; }
 .lang { display: flex; gap: 2px; padding: 4px; background: var(--lav); border-radius: var(--radius-sm); }

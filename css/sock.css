@@ -24,8 +24,8 @@
 
 .chips { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; margin-top: 28px; }
 .chip { display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 8px 4px; border: 0; background: none; border-radius: var(--radius-sm); cursor: pointer; font-weight: 500; font-size: 0.85rem; line-height: 1.25; text-align: center; color: var(--muted); min-width: 0; }
-.chip .n { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--lav); color: var(--ink); font: 800 1rem var(--display); }
-.chip:hover .n { background: var(--lav-line); }
+.chip .n { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--lav-line); color: var(--strong); font: 800 1rem var(--display); }
+.chip:hover .n { background: var(--accent); color: var(--accent-ink); }
 .chip[aria-current="step"] { color: var(--strong); font-weight: 700; }
 .chip[aria-current="step"] .n { background: var(--strong); color: var(--strong-ink); }
 @media (min-width: 1040px) {

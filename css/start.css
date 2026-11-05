@@ -1,20 +1,15 @@
 /* start view: plain columns with a coloured dot in front of each heading, then the calculator on a soft fill. No outlines. */
 .intro { max-width: 58ch; font-size: 1.1rem; }
-.start-grid { display: grid; gap: 36px 48px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); margin-top: 36px; }
-.start-grid > div { min-width: 0; }
-.start-grid > div:nth-child(5n + 1) { --dot: var(--c-leg); }
-.start-grid > div:nth-child(5n + 2) { --dot: var(--c-cuff); }
-.start-grid > div:nth-child(5n + 3) { --dot: var(--c-foot); }
-.start-grid > div:nth-child(5n + 4) { --dot: var(--c-heel); }
-.start-grid > div:nth-child(5n + 5) { --dot: var(--stripe-sky); }
+.start-grid { column-width: 300px; column-gap: 48px; margin-top: 36px; }
+.start-grid > div { min-width: 0; break-inside: avoid; margin-bottom: 36px; }
 .start-grid h3, .calc h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 8px; color: var(--strong); }
-.start-grid h3::before { content: ''; display: inline-block; width: 11px; height: 11px; margin-right: 10px; border-radius: 50%; background: var(--dot); }
+.start-grid h3::before { content: ''; display: inline-block; width: 11px; height: 11px; margin-right: 10px; border-radius: 50%; background: var(--accent); }
 .start-grid p + p { margin-top: 8px; }
 .fine { color: var(--muted); font-size: 0.95rem; }
 
-.calc { margin-top: 48px; padding: 24px 24px 22px; max-width: 560px; background: var(--lav); border-radius: var(--radius); }
+.calc { margin-top: 48px; padding: 24px 24px 22px; background: var(--lav); border-radius: var(--radius); }
 .calc .fields { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 14px; }
-.field { display: flex; flex-direction: column; gap: 4px; font-weight: 500; font-size: 0.95rem; min-width: 0; flex: 1 1 200px; }
+.field { display: flex; flex-direction: column; gap: 4px; font-weight: 500; font-size: 0.95rem; min-width: 0; flex: 1 1 180px; }
 .field input, .field select { font: inherit; font-size: 16px; font-weight: 600; padding: 11px 12px; border: 0; border-radius: var(--radius-sm); background: var(--card); color: var(--ink); width: 100%; min-width: 0; }
 .field input:focus-visible, .field select:focus-visible { outline-offset: 0; }
 .result { margin-top: 18px; text-align: center; font-weight: 600; }
