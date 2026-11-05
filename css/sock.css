@@ -9,7 +9,8 @@
 .part { cursor: pointer; opacity: 0.55; transition: opacity 0.15s; }
 .part:hover { opacity: 0.85; }
 .part[aria-pressed="true"], #sock.all .part { opacity: 1; }
-.part:focus-visible { outline: none; }
+.part:focus, .part:focus-visible { outline: none; }
+.part { -webkit-tap-highlight-color: transparent; }
 .part:focus-visible .shape { stroke: var(--ink); stroke-width: 6; }
 .z-cuff { fill: var(--c-cuff); }
 .z-leg { fill: var(--c-leg); }
