@@ -24,4 +24,5 @@
 .result { margin-top: 18px; text-align: center; font-weight: 600; }
 .result strong { display: block; font: 800 2.6rem var(--display); font-variant-numeric: tabular-nums; margin: 2px 0; color: var(--strong); }
 .calc .fine { margin-top: 10px; }
-.start-cta { margin-top: 36px; }
+.start-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px 32px; }
+.start-cta { flex: none; }
