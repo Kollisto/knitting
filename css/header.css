@@ -1,17 +1,15 @@
-/* header */
-.top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px 32px; padding-bottom: 28px; }
+/* header: title on the left, small tools (language, theme) in the corner as plain text and icon, tabs under the title with a line under the active one. No fills. */
+.top { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 8px 32px; padding-bottom: 28px; }
 .top h1 { font-size: clamp(2rem, 5vw, 2.75rem); font-weight: 800; letter-spacing: -0.035em; }
 .sub { color: var(--muted); margin-top: 6px; max-width: 34ch; }
-.top-right { display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
-.tabs { display: flex; gap: 6px; }
-.tab { background: none; border: 0; padding: 11px 18px; border-radius: var(--radius-sm); cursor: pointer; font: 700 0.95rem var(--display); color: var(--ink); background: var(--lav); }
-.tab:hover { background: var(--lav-line); }
-.tab[aria-selected="true"]:hover { background: var(--select); }
-.tab[aria-selected="true"] { color: var(--strong); background: var(--select); }
-.tools { display: flex; align-items: center; gap: 8px; }
-.lang { display: flex; gap: 2px; padding: 4px; background: var(--lav); border-radius: var(--radius-sm); }
-.lang button { font: 700 0.85rem var(--display); min-width: 44px; min-height: 36px; padding: 4px 12px; border: 0; border-radius: 7px; background: none; color: var(--muted); cursor: pointer; }
+.tools { display: flex; align-items: center; gap: 4px; }
+.lang { display: flex; }
+.lang button { font: 700 0.9rem var(--display); min-width: 44px; min-height: 44px; padding: 4px 8px; border: 0; background: none; color: var(--muted); cursor: pointer; }
 .lang button:hover { color: var(--ink); }
-.lang button[aria-pressed="true"] { background: var(--select); color: var(--strong); }
-.theme-toggle { width: 44px; height: 44px; display: grid; place-items: center; font-size: 1.25rem; line-height: 1; border: 0; border-radius: var(--radius-sm); background: var(--lav); color: var(--strong); cursor: pointer; }
-.theme-toggle:hover { background: var(--lav-line); }
+.lang button[aria-pressed="true"] { color: var(--strong); }
+.theme-toggle { width: 44px; height: 44px; display: grid; place-items: center; font-size: 1.25rem; line-height: 1; border: 0; background: none; color: var(--muted); cursor: pointer; }
+.theme-toggle:hover { color: var(--strong); }
+.tabs { display: flex; gap: 28px; flex: 1 0 100%; margin-top: 16px; }
+.tab { background: none; border: 0; border-bottom: 3px solid transparent; padding: 10px 0 7px; min-height: 44px; cursor: pointer; font: 700 1rem var(--display); color: var(--muted); }
+.tab:hover { color: var(--ink); }
+.tab[aria-selected="true"] { color: var(--strong); border-bottom-color: var(--accent); }

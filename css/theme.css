@@ -17,7 +17,6 @@
   --accent-2: light-dark(#8E68CF, #9F7DE0);
   --accent-ink: light-dark(#FFFFFF, #1A1726);
   --strong: light-dark(#3B2A66, #E4D8FA);        /* what is selected, and headings */
-  --select: light-dark(#D3C4F2, #4A3F73);        /* the active tab and language: quiet, not heavy */
   --strong-ink: light-dark(#FFFFFF, #1A1726);
   --shadow: 0 2px 10px light-dark(rgba(65, 45, 75, 0.06), rgba(0, 0, 0, 0.3));
   --radius: 14px;
