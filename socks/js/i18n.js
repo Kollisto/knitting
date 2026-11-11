@@ -43,3 +43,4 @@ const dig = (object, path) => path.split('.').reduce((o, key) => (o == null ? o 
 export const text = (path) => dig(texts[language], path) ?? dig(texts[DEFAULT_LANGUAGE], path);
 export const ui = (key) => text(`ui.${key}`);
 export const stepText = (id) => text(`steps.${id}`);
+export const termText = (id) => text(`glossary.terms.${id}`);

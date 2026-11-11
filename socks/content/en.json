@@ -30,7 +30,11 @@
     "mediaNote": "A link to the video for this step will go here.",
     "figCaption": "Schematic, read from top to bottom and seen from below, the way you knit it. Each line is one row and each square is one stitch, drawn for 15 heel stitches (5 + 5 + 5). Rings mark the double stitches where you turn. The dashed line is the full round through the instep stitches. The arrows show the direction of the knitting at the start and at the end.",
     "themeToDark": "Switch to dark theme",
-    "themeToLight": "Switch to light theme"
+    "themeToLight": "Switch to light theme",
+    "tabGlossary": "Glossary",
+    "termOpen": "Open the glossary",
+    "close": "Close",
+    "termAria": "Explain"
   },
   "page": {
     "title": "Sock Map",
@@ -40,13 +44,13 @@
     "yarn-1": "Sock-weight (fingering) wool with about 25% nylon. The nylon stops the heel and toe from wearing through. Expect around 400 m per 100 g.",
     "yarn-2": "For a first pair, pick a smooth, light, solid colour so you can see every stitch. The label lists the fibre content and the needle size to use.",
     "needles-h": "Needles",
-    "needles-1": "A set of five double-pointed needles, or one long circular needle for the magic loop method. Sizes 2 to 3 mm suit most sock yarn.",
+    "needles-1": "A set of five [[dpns|double-pointed needles]], or one long circular needle for the magic loop method. Sizes 2 to 3 mm suit most sock yarn.",
     "needles-2": "Personally, I rather prefer 5 needles. So for this tutorial we will use them.",
     "needles-3": "Wood and bamboo hold stitches better than metal, which helps while you learn.",
     "kit-h": "Small kit",
-    "kit-1": "A stitch marker for the start of the round, a tapestry needle for the ends, and a tape measure.",
+    "kit-1": "A [[marker|stitch marker]] for the start of the round, a [[tapestry-needle|tapestry needle]] for the ends, and a tape measure.",
     "skills-h": "Skills",
-    "skills-1": "Cast on, knit, purl, 1x1 or 2x2 ribbing, German short rows and binding off. Knit a gauge swatch of about 12 by 12 cm first, then count the stitches across the middle 10 cm. Without it, the sock will not fit.",
+    "skills-1": "[[cast-on|Cast on]], [[knit|knit]], [[purl|purl]], [[ribbing|1x1 or 2x2 ribbing]], [[short-rows|German short rows]] and [[bind-off|binding off]]. Knit a [[gauge|gauge swatch]] of about 12 by 12 cm first, then count the stitches across the middle 10 cm. Without it, the sock will not fit.",
     "skills-2": "Personally, I only need the width gauge. You can adjust the length as you go, but it is important that the width fits.",
     "skills-3": "All the techniques you need will be explained and shown in this lesson.",
     "measure-h": "Measure",
@@ -66,16 +70,16 @@
       "kind": "Worked in the round",
       "what": "The ribbed top edge. It hugs the leg and keeps the sock from sliding down.",
       "how": [
-        "Work out your cast-on number from your gauge. The calculator under Before you start does the sum.",
-        "Cast on with a stretchy method and spread the stitches over your needles.",
-        "Join the stitches into a round and place a marker at the start.",
-        "Work 2x2 or 1x1 ribbing for about 2 to 3 cm, or as long as you wish. Write down the number of rows."
+        "Work out your cast-on number from your [[gauge|gauge]]. The calculator under Before you start does the sum.",
+        "[[cast-on|Cast on]] with a stretchy method and spread the stitches over your needles.",
+        "Join the stitches into a [[round-row|round]] and place a [[marker|marker]] at the start.",
+        "Work [[ribbing|2x2 or 1x1 ribbing]] for about 2 to 3 cm, or as long as you wish. Write down the number of rows."
       ],
       "watchLabel": "Watch out",
       "watch": [
         "A twisted join cannot be fixed later. Before the first round, lay the stitches along the needles and check that the cast-on edge runs around the inside with no spiral.",
         "A tight cast-on makes the cuff pinch. Cast on with a needle one size larger. This is optional. Personally, I have never had any issues with it.",
-        "2x2 ribbing: knit 2, then purl 2. Same for 1x1 (knit 1, purl 1).",
+        "2x2 ribbing: [[knit|knit]] 2, then [[purl|purl]] 2. Same for 1x1 (knit 1, purl 1).",
         "Make sure you cast on a multiple of 4 stitches for 2x2 ribbing, or an even number for 1x1."
       ],
       "chip": "Cuff"
@@ -85,7 +89,7 @@
       "kind": "Worked in the round",
       "what": "The tube above the heel. The easiest part: the same round, over and over. Here you can add any design you want. It can stop at the heel or continue through the gusset and foot.",
       "how": [
-        "Switch to stockinette (knit every round), or keep the ribbing for a stretchier fit.",
+        "Switch to [[stockinette|stockinette]] (knit every round), or keep the ribbing for a stretchier fit.",
         "Knit until the leg measures 10 to 15 cm from the cast-on edge, or the height you like.",
         "Write the height down (row number). You need it again for sock two."
       ],
@@ -98,12 +102,12 @@
     "heel": {
       "name": "Heel",
       "kind": "Worked back and forth",
-      "what": "The heel is worked back and forth on half of the stitches, using German short rows. Each row is one stitch shorter than the last, then each is one stitch longer. This shapes a cup for the back of the foot, with no stitches picked up.",
+      "what": "The heel is worked back and forth on half of the stitches, using [[short-rows|German short rows]]. Each row is one stitch shorter than the last, then each is one stitch longer. This shapes a cup for the back of the foot, with no stitches picked up.",
       "how": [
-        "Put half of the stitches on hold. These are the instep stitches, and they wait until the heel is done.",
+        "Put half of the stitches [[hold|on hold]]. These are the [[instep-sole|instep]] stitches, and they wait until the heel is done.",
         "Divide the other half, the heel stitches, into three parts: right, centre and left. The right and left parts always have the same number of stitches. If the heel stitches do not divide by 3, put the extra stitches in the centre, or take them from the centre and give them to the sides.",
         "Row 1 (right side): knit the right part, the centre and the left part. The last stitch is your first turning stitch. Turn the work.",
-        "Make a double stitch (DS): pull the yarn over the needle so the stitch looks like two, and slip it to the right needle. Purl to the end of the row. Turn on the last stitch and make a DS again.",
+        "Make a [[short-rows|double stitch (DS)]]: pull the yarn over the needle so the stitch looks like two, and slip it to the right needle. Purl to the end of the row. Turn on the last stitch and make a DS again.",
         "Next right-side row: slip the DS, knit the right part and the centre, and knit the left part up to the DS from the previous row. Stop in front of it, turn, and make a DS. Purl to the DS at the end of the row, stop in front of it, turn, and make a DS.",
         "Repeat. Each row is one stitch shorter than the one before, until only the centre is left. Knit the last stitch of the left part, turn on it and slip it. Purl the centre and the last stitch of the right part, then turn on it.",
         "Now every stitch in the right and left parts is a DS. Knit the centre, then the left part, then the instep stitches from the hold. Knit the right part, then the centre again.",
@@ -125,7 +129,7 @@
     "gusset": {
       "name": "Gusset and foot",
       "kind": "Worked in the round",
-      "what": "After the heel, all the stitches are joined back into one round. The gusset and the foot are worked together as one long stretch.",
+      "what": "After the heel, all the stitches are joined back into one round. The [[gusset|gusset]] and the foot are worked together as one long stretch.",
       "how": [
         "Knit across the heel stitches.",
         "Knit the instep stitches that were left on hold during the heel.",
@@ -146,11 +150,11 @@
       "kind": "Worked in the round",
       "what": "The tip. Decreases at both sides shape it, and the last stitches are joined with an invisible seam.",
       "how": [
-        "Split the stitches into two halves: instep and sole. Make sure you split them evenly so the seam turns out to be horizontal.",
-        "On each half: knit 1, slip-slip-knit, knit to the last 3 stitches, knit 2 together, knit 1.",
+        "Split the stitches into two halves: [[instep-sole|instep and sole]]. Make sure you split them evenly so the seam turns out to be horizontal.",
+        "On each half: knit 1, [[ssk|slip-slip-knit]], knit to the last 3 stitches, [[k2tog|knit 2 together]], knit 1.",
         "Decrease on every second round at first, then on every round as the toe narrows. I usually forget and decrease every other round right till the end.",
         "Stop at about 16 stitches, 8 on top and 8 underneath.",
-        "Close with Kitchener stitch. Or turn the sock inside out and use a three-needle bind-off, which leaves a ridge inside."
+        "Close with [[kitchener|Kitchener stitch]]. Or turn the sock inside out and use a three-needle [[bind-off|bind-off]], which leaves a ridge inside."
       ],
       "watchLabel": "Watch out",
       "watch": [
@@ -164,8 +168,8 @@
       "kind": "The last stitches",
       "what": "Weave in, wash, repeat.",
       "how": [
-        "Weave in the ends on the inside with a tapestry needle. Usually you're left with two ends: the beginning and the end.",
-        "Wash the sock in lukewarm water, press out the water in a towel, and dry it flat. This is wet blocking.",
+        "[[weave-in|Weave in the ends]] on the inside with a [[tapestry-needle|tapestry needle]]. Usually you're left with two ends: the beginning and the end.",
+        "Wash the sock in lukewarm water, press out the water in a towel, and dry it flat. This is [[blocking|wet blocking]].",
         "If you didn't start the second sock right away, write down the following before you cast on: needle size, cast-on count, leg height and the foot length where the toe starts.",
         "Knit sock two from your notes."
       ],
@@ -174,6 +178,113 @@
         "Sock two feels slower than sock one. Cast it on the same day, using your notes, and the pair will match."
       ],
       "chip": "Finish + sock 2"
+    }
+  },
+  "glossary": {
+    "title": "Glossary",
+    "intro": "The knitting words used in this guide, each with a short explanation. In the steps, these words are underlined with dots: tap one to see what it means.",
+    "groups": {
+      "basics": "Basics",
+      "tools": "Tools",
+      "parts": "Parts of the sock",
+      "techniques": "Techniques"
+    },
+    "terms": {
+      "knit": {
+        "name": "Knit stitch",
+        "text": "The basic stitch. The yarn stays at the back, and the needle goes into the stitch from front to back. On the right side of the work it looks like a small V."
+      },
+      "purl": {
+        "name": "Purl stitch",
+        "text": "The reverse of a knit stitch. The yarn is at the front, and the needle goes into the stitch from back to front. It looks like a small horizontal bump."
+      },
+      "stockinette": {
+        "name": "Stockinette",
+        "text": "Fabric with only Vs on the right side and only bumps on the wrong side. In the round, you get it by knitting every stitch: the wrong side stays inside the sock.",
+        "fig": {
+          "front": "Right side",
+          "back": "Wrong side"
+        }
+      },
+      "ribbing": {
+        "name": "Ribbing",
+        "text": "Columns of knit and purl stitches side by side. 1x1 ribbing is knit 1, purl 1; 2x2 ribbing is knit 2, purl 2. It stretches well, which is why the cuff is ribbed."
+      },
+      "round-row": {
+        "name": "Round and row",
+        "text": "A round goes all the way around without turning, always on the right side. A row goes back and forth: at the end you turn the work. A sock is knit in rounds, only the heel in rows. Knitters often say \"rows\" for rounds too.",
+        "fig": {
+          "round": "Round",
+          "row": "Row"
+        }
+      },
+      "gauge": {
+        "name": "Gauge",
+        "text": "How many stitches fit into 10 cm of fabric. Measure it on a swatch knit with the same yarn and needles as the sock. The calculator under Before you start uses it to work out your cast-on.",
+        "fig": {
+          "ten": "10 cm"
+        }
+      },
+      "dpns": {
+        "name": "Double-pointed needles",
+        "text": "Short needles with a point at each end, usually sold in sets of five. The stitches are spread over four of them, which form a square, and you knit with the fifth."
+      },
+      "marker": {
+        "name": "Stitch marker",
+        "text": "A small ring or clip that marks a place in the knitting, such as the start of the round. A ring sits on the needle between two stitches and is moved across as you reach it; a clip can hang on a stitch."
+      },
+      "hold": {
+        "name": "Stitches on hold",
+        "text": "Stitches you are not knitting right now, moved to a spare needle, the cord of a circular needle or a piece of thick yarn. They wait there until you come back to them, like the instep stitches while you knit the heel."
+      },
+      "tapestry-needle": {
+        "name": "Tapestry needle",
+        "text": "A large sewing needle with a wide eye and a blunt tip, so it does not split the yarn. You use it to weave in the ends and to sew the [[kitchener|Kitchener stitch]]."
+      },
+      "instep-sole": {
+        "name": "Instep and sole",
+        "text": "The foot of the sock is split into two halves. The instep is the top half, over the top of the foot. The sole is the bottom half, the one you stand on.",
+        "fig": {
+          "instep": "Instep",
+          "sole": "Sole"
+        }
+      },
+      "gusset": {
+        "name": "Gusset",
+        "text": "The part of the foot right after the heel. With a short-row heel like the one here, the gusset has no extra decreases, so the gusset and the foot are knit as one piece."
+      },
+      "cast-on": {
+        "name": "Cast on",
+        "text": "Making the first stitches on the needle; every piece of knitting starts with it. A sock needs a stretchy cast-on, so the cuff goes over the heel and does not pinch."
+      },
+      "k2tog": {
+        "name": "Knit two together (k2tog)",
+        "text": "A decrease. Put the needle into the next two stitches at once and knit them as one. Two stitches become one, leaning to the right."
+      },
+      "ssk": {
+        "name": "Slip, slip, knit (SSK)",
+        "text": "A decrease leaning to the left, the mirror of [[k2tog|knit two together]]. Slip two stitches one at a time as if to knit, put them back on the left needle, and knit them together through the back loops."
+      },
+      "short-rows": {
+        "name": "German short rows",
+        "text": "Rows that you turn before the end, so each row is shorter than the one before. At each turn you make a double stitch (DS), which closes the gap so no hole appears. This is how the heel is shaped."
+      },
+      "kitchener": {
+        "name": "Kitchener stitch",
+        "text": "A seam that joins the stitches of two needles invisibly, as if the fabric had been knit in one piece. It closes the toe. You sew it with a tapestry needle and a long tail of yarn."
+      },
+      "bind-off": {
+        "name": "Bind off",
+        "text": "Taking the stitches off the needle so they do not unravel: knit two stitches, then lift the first one over the second, and repeat."
+      },
+      "weave-in": {
+        "name": "Weave in the ends",
+        "text": "Thread the ends of the yarn on a tapestry needle and run them through a few stitches on the wrong side, in different directions, then cut them. This way they will not work loose."
+      },
+      "blocking": {
+        "name": "Wet blocking",
+        "text": "Soaking or washing the finished sock and drying it flat. The stitches even out, and the knitting looks neater."
+      }
     }
   }
 }

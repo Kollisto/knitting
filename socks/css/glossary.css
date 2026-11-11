@@ -1,0 +1,58 @@
+/* The glossary: words underlined with dots in the texts, the short explanation in a dialog, and the glossary page.
+   The pictures (js/glossary-figures.js) use the same colours as the sock and the heel schematic. */
+
+/* a glossary word inside a text */
+.term { color: inherit; text-decoration: underline dotted var(--accent); text-decoration-thickness: 2px; text-underline-offset: 3px; cursor: pointer; }
+.term:hover { color: var(--strong); text-decoration-style: solid; }
+
+/* the glossary page */
+.glossary-group { margin-top: 40px; }
+.glossary-group h2 { font-size: 1.35rem; font-weight: 800; color: var(--strong); }
+.glossary-group h2::before { content: ''; display: inline-block; width: 11px; height: 11px; margin-right: 10px; border-radius: 50%; background: var(--accent); vertical-align: 0.12em; }
+.term-cards { display: grid; gap: 32px 28px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); margin-top: 18px; }
+.term-card { min-width: 0; scroll-margin: 24px; border-radius: var(--radius-sm); }
+.term-card:focus { outline: none; }
+.term-card h3 { font-size: 1.05rem; font-weight: 800; color: var(--strong); }
+.term-card p { margin-top: 6px; }
+.term-fig-box, .term-dialog-figure { padding: 10px; margin-bottom: 12px; border-radius: var(--radius-sm); background: var(--lav); }
+.term-card.flash { animation: term-flash 1.8s ease-out; }
+@keyframes term-flash {
+  0%, 30% { box-shadow: 0 0 0 8px var(--sun-line); background: var(--sun); }
+  100% { box-shadow: 0 0 0 8px transparent; background: transparent; }
+}
+
+/* the dialog */
+.term-dialog { width: min(440px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); padding: 20px; border: 0; border-radius: var(--radius); background: var(--card); color: var(--ink); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); }
+.term-dialog::backdrop { background: rgba(26, 23, 38, 0.5); }
+.term-dialog h2 { font-size: 1.35rem; font-weight: 800; color: var(--strong); }
+.term-dialog p { margin-top: 8px; }
+.term-dialog-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+.term-dialog-actions .btn { flex: 1 1 auto; justify-content: center; }
+
+/* the pictures */
+.term-fig { display: block; width: 100%; height: auto; max-height: 180px; overflow: visible; }
+.term-fig .st { fill: none; stroke: var(--lav-ink); stroke-opacity: 0.55; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.term-fig .st.soft { stroke-opacity: 0.3; }
+.term-fig .st.hi { stroke: var(--accent); stroke-opacity: 1; stroke-width: 3.2; }
+.term-fig .st.strong { stroke: var(--strong); stroke-width: 4; }
+.term-fig .yarn { fill: none; stroke: var(--accent); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.term-fig .yarn.thin { stroke-width: 2.2; }
+.term-fig .head { fill: var(--accent); }
+.term-fig .needle { stroke: var(--muted); stroke-width: 3.5; stroke-linecap: round; }
+.term-fig .hi-needle { stroke: var(--strong); }
+.term-fig .loop { fill: none; stroke: var(--accent); stroke-width: 2.4; }
+.term-fig .ring { fill: none; stroke: var(--c-heel); stroke-width: 4.5; }
+.term-fig .swatch { fill: var(--card); }
+.term-fig .bracket { fill: none; stroke: var(--strong); stroke-width: 2; stroke-linejoin: round; }
+.term-fig .fig-label { fill: var(--muted); font: 600 12px var(--body); }
+.term-fig .sock-fill { fill: var(--card); }
+.term-fig .sock-line { fill: none; stroke: var(--strong); stroke-width: 8; stroke-linejoin: round; }
+.term-fig .sock-line.thin { stroke-width: 2; }
+.term-fig .part-a { fill: var(--c-cuff); }
+.term-fig .part-b { fill: var(--c-heel); }
+.term-fig .bar { fill: var(--c-heel); }
+.term-fig .dot { fill: var(--card); stroke: var(--strong); stroke-width: 1.5; }
+
+@media (prefers-reduced-motion: reduce) {
+  .term-card.flash { animation: none; outline: 3px solid var(--accent); outline-offset: 6px; }
+}

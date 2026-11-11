@@ -16,20 +16,23 @@ css/                    styles, one file per part of the page
   panel.css             the step text, lists, video box, pager
   start.css             "Before you start" and the stitch calculator
   heel-figure.css       the heel schematic
+  glossary.css          the glossary page, the glossary words in the texts, their dialog and pictures
 js/                     the code, as ES modules
   app.js                routing (the URL hash is the page), events, start-up
   view.js               puts texts and steps on the page
   i18n.js               loads content/*.json and knows the current language
   heel-figure.js        the heel schematic, built from a model of the rows
+  glossary-figures.js   the glossary pictures, drawn in code so they follow the theme
+  term-markup.js        finds [[term|words]] glossary links in the texts
   calculator.js         how many stitches to cast on (2x2 or 1x1 ribbing)
-  constants.js          the step order and the languages
+  constants.js          the step order, the glossary terms and the languages
   theme.js              the light / dark switch (theme-init.js applies the saved choice before drawing)
   dom.js                small DOM helpers
 fonts/                  Manrope and DM Sans, served from here (OFL licence files included)
 content/                every word on the page
   en.json
   ru.json
-tests/                  checks for the calculator, the heel rows and the texts
+tests/                  checks for the calculator, the heel rows, the texts and the glossary
 ```
 
 ## Changing the texts
@@ -40,7 +43,23 @@ Edit `content/en.json` and `content/ru.json`. Both files have the same keys. Eac
 - `steps`: one entry per step (`name`, `chip`, `kind`, `what`, `how`, `watchLabel`, `watch`, and an optional `video` link)
 - `ui`: buttons, labels and the heel figure's texts
 
+- `glossary`: the glossary page, its groups and its terms
+
 To add a video to a step, add `"video": "https://…"` to that step in each language file.
+
+## The glossary
+
+The **Glossary** tab explains the knitting words. In any text, write a glossary word as `[[term-id|the words shown]]`,
+for example `[[ssk|SSK]]`. The words are underlined with dots, and a tap opens a short explanation with its picture.
+
+To add a term:
+
+1. Add its id to a group in `GLOSSARY` in `js/constants.js`. The order there is the order on the page.
+2. Add `"term-id": { "name": "…", "text": "…" }` under `glossary.terms` in every language file.
+3. Optionally, draw a picture: add a function to `FIGURES` in `js/glossary-figures.js`.
+   If the picture has words on it, put them in the term's `fig` object in every language file and read them as `t.<name>`.
+
+The tests fail if a link points to a term that does not exist, or a term is missing in one of the languages.
 
 ## Adding a language
 
